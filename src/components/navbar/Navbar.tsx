@@ -1,12 +1,32 @@
 import React from "react";
-import {Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Button} from "@nextui-org/react";
-import {AcmeLogo} from "./AcmeLogo";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Button,
+} from "@nextui-org/react";
+import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
 
-export default function App() {
+export default function FullNavbar() {
+  const menuItems = [
+    "Profile",
+    "Dashboard",
+    "Activity",
+    "Analytics",
+    "System",
+    "Deployments",
+    "My Settings",
+    "Team Settings",
+    "Help & Feedback",
+    "Log Out",
+  ];
   return (
-    <Navbar isBordered
+    <Navbar
+      isBordered
       classNames={{
         item: [
           "flex",
@@ -25,9 +45,9 @@ export default function App() {
       }}
     >
       <NavbarBrand>
-      <Link color="foreground" href="/">
-        <AcmeLogo />
-        <p className="font-bold text-inherit">{BRAND_NAME}</p>
+        <Link color="foreground" href="/">
+          <AcmeLogo />
+          <p className="font-bold text-inherit">{BRAND_NAME}</p>
         </Link>
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
@@ -48,12 +68,11 @@ export default function App() {
         </NavbarItem>
       </NavbarContent>
       <NavbarContent justify="end">
-      
         <NavbarItem>
-          <Button as={Link}  href="/login" variant="flat" >
-          Login | Sign Up
+          <Button as={Link} href="/login" variant="flat">
+            Login | Sign Up
           </Button>
-        &nbsp;  <ThemeSwitcher />
+          &nbsp; <ThemeSwitcher />
         </NavbarItem>
       </NavbarContent>
     </Navbar>

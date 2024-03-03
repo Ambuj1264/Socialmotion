@@ -2,7 +2,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {Tabs, Tab, Input, Link, Button, Card, CardBody, CardHeader} from "@nextui-org/react";
+import {Tabs, Tab, Input, Link, Button, Card, CardBody} from "@nextui-org/react";
 
 export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
@@ -25,14 +25,19 @@ export default function Authentication() {
         password: Yup.string().required("Required")
       }),
     onSubmit: (values) => {
-      // Handle form submission here
-      console.log("Form submitted with values:", values);
+      if(values?.name){ //Registration 
+        console.log("Form submitted with values:", values);
+      }
+      else {
+        console.log("Form submitted with values:", values);
+      }
+     
     }
   });
 
   return (
     <div className="min-h-screen justify-center items-center flex flex-col w-full">
-      <Card className="max-w-full w-[340px] h-[400px]">
+      <Card className="max-w-full w-[340px] ">
         <CardBody className="overflow-hidden">
           <Tabs
             fullWidth
