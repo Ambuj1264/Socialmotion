@@ -50,7 +50,7 @@ export default function App() {
       <NavbarContent justify="end">
       
         <NavbarItem>
-          <Button as={Link}  href="#" variant="flat" >
+          <Button as={Link}  href="/login" variant="flat" >
           Login | Sign Up
           </Button>
         &nbsp;  <ThemeSwitcher />
