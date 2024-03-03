@@ -63,8 +63,8 @@ export default function Contact() {
                   onChange={formik.handleChange}
                   onBlur={formik.handleBlur}
                   isRequired
-                  label="Password"
-                  placeholder="Enter your password"
+                  label="Mobile number"
+                  placeholder="Enter your Mobile number"
                   type="Mobile Number"
                 />
                 {formik.touched.mobileNumber && formik.errors.mobileNumber ? (

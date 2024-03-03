@@ -3,33 +3,40 @@ import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {Tabs, Tab, Input, Link, Button, Card, CardBody} from "@nextui-org/react";
+import { errorToast, successToast } from "@/utility/Toast";
 
 export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
+  console.log(selected,"selected")
 
   // Formik configuration
   const formik = useFormik({
     initialValues: {
       email: "",
       password: "",
-      name: ""
+      name: "",
+      authType: selected
     },
     validationSchema: selected === "login" ? 
       Yup.object({
         email: Yup.string().email("Invalid email address").required("Required"),
-        password: Yup.string().required("Required")
+        password: Yup.string().required("Required"),
+        authType: Yup.string()
       }) :
       Yup.object({
         name: Yup.string().required("Required"),
         email: Yup.string().email("Invalid email address").required("Required"),
-        password: Yup.string().required("Required")
+        password: Yup.string().required("Required"),
+        authType: Yup.string()
       }),
     onSubmit: (values) => {
-      if(values?.name){ //Registration 
+      if((values?.authType==="login")){ //Registration 
         console.log("Form submitted with values:", values);
+        successToast("Signup success")
       }
       else {
         console.log("Form submitted with values:", values);
+        errorToast("Login failed")
       }
      
     }
@@ -88,7 +95,7 @@ export default function Authentication() {
               </form>
             </Tab>
             <Tab key="sign-up" title="Sign up">
-              <form className="flex flex-col gap-4 h-[300px]" onSubmit={formik.handleSubmit}>
+              <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
                 <Input
                   name="name"
                   value={formik.values.name}
