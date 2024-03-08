@@ -1,9 +1,10 @@
-import React, {  ReactNode } from 'react';
+import { Spinner } from "@nextui-org/react";
+import React, { ReactNode, Suspense } from "react";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   return (
     <>
-      <main>{children}</main>
+      <Suspense fallback={<Spinner />}>{children}</Suspense>
     </>
   );
 };

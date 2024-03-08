@@ -1,8 +1,8 @@
 "use client";
-import { LocalStorageKey } from '@/context/AuthProvider';
-import { useAuth } from '@/context/authContext';
-import { useLocalStorage } from '@/hook/useLocalStorage';
-import React, {  ReactNode, useEffect } from 'react';
+import { LocalStorageKey } from "@/context/AuthProvider";
+import { useAuth } from "@/context/authContext";
+import { useLocalStorage } from "@/hook/useLocalStorage";
+import React, { ReactNode, useEffect } from "react";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   // const [verifyToken] = useLazyQuery(VERIFY_TOKEN);
@@ -19,8 +19,7 @@ const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
   }, []);
   return (
     <>
-      <main>
-        {children}</main>
+      <main>{children}</main>
     </>
   );
 };

@@ -8,33 +8,38 @@ interface SocialMenuType {
   toolNo: string;
   name: string;
   addr: string;
+  imgAddr:string;
 }
 
 const Menu = () => {
   const SocialMenu: SocialMenuType[] = [
     {
-      details: "Daily Mix",
-      toolNo: "15 Tools",
+      details: "Automate Your Facebook Account",
+      toolNo: "5 Free and 10 Paid  tools",
       name: "Facebook",
       addr: "/facebookautomationfirst",
+      imgAddr:"image/hero-card-complete.jpeg"
     },
     {
       details: "Daily Mix",
       toolNo: "Coming soon..",
       name: "Instagram",
       addr: "/",
+      imgAddr:"image/hero-card-complete.jpeg"
     },
     {
       details: "Daily Mix",
       toolNo: "Coming soon..",
       name: "Linkedin",
       addr: "/",
+      imgAddr:"image/hero-card-complete.jpeg"
     },
     {
       details: "Daily Mix",
       toolNo: "No. of Tools",
       name: "Your Website",
       addr: "/",
+      imgAddr:"image/hero-card-complete.jpeg"
     },
   ];
 
@@ -65,7 +70,7 @@ const Menu = () => {
                           isZoomed
                           alt="Card background"
                           className="object-cover rounded-xl"
-                          src={FreeImage.src}
+                          src={value?.imgAddr}
                           width={270}
                         />
                       </CardBody>
