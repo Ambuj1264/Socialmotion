@@ -2,6 +2,7 @@ import { Button, Link } from "@nextui-org/react";
 import { BANNER_HEADING, BANNER_SUB_HEADING } from "@/utility/constant";
 import Footer from "@/components/footer/Footer";
 export default function Home() {
+  console.log( process.env.GITHUB_CLIENTID, process.env.GITHUB_CLIENT_SECRET, process.env.GOOGLE_CLIENTID, process.env.GOOGLE_CLIENT_SECRET,"process.env.GOOGLE_CLIENT_SECRET");
   return (
     <div className="">
      
