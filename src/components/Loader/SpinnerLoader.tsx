@@ -1,11 +1,17 @@
 import { Spinner } from '@nextui-org/react'
-
 import React from 'react'
 
 const SpinnerLoader = () => {
   return (
-    <div className='flex justify-center items-center w-full h-full'>
-    <Spinner />
+    <div className='' style={{
+      position: "fixed",
+      top: "50%",
+      left: "50%",
+      transform: "translate(-50%, -50%)",
+    }}>
+      <div className='flex items-center'>
+        <Spinner />
+      </div>
     </div>
   )
 }

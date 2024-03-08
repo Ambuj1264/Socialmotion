@@ -24,7 +24,7 @@ export default function RootLayout({
       <body className={inter.className}>
       <SessionProvider>
         <Providers>
-          <FullNavbar />
+        
           {children}
           <Footer />
           </Providers>

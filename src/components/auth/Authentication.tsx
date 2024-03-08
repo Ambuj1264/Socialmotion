@@ -1,5 +1,6 @@
-"use client";
+"use client"
 import React, { useState } from "react";
+
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -14,23 +15,29 @@ import {
 import { errorToast, successToast } from "@/utility/Toast";
 import { useLazyQuery } from "@apollo/client";
 import { loginQuery } from "@/hook/query/login";
-import { redirect } from "next/navigation";
-import { signIn,signOut } from "next-auth/react";
+import { signIn } from "next-auth/react";
 import SpinnerLoader from "../Loader/SpinnerLoader";
+import { useMutation } from "@apollo/client";
+import { createUser } from "@/hook/mutations/createUser";
+import { useRouter } from 'next/navigation';
+import { setCookie } from "@/hook/cookies";
 
 export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
-
-  const signInHandler=()=>{
-    signIn("google",{callbackUrl:"/menu"})
-  }
+  const router= useRouter();
+  const [authType, setAuthType] = useState<any>("login"); // Added authType state
+  const [createUserData, { loading: createUserLoader }] =
+    useMutation(createUser);
+  const signInHandler = () => {
+    signIn("google", { callbackUrl: "/dashboard" });
+  };
 
   const [login, { loading }] = useLazyQuery(loginQuery, {
     onCompleted: (data) => {
-      console.log(data, "data");
       localStorage.setItem("TOKEN", data?.login?.token);
       successToast("login success");
-      redirect("/menu");
+      setCookie("authtoken",data?.login?.token,30);
+      router.push('/dashboard');
     },
   });
 
@@ -40,29 +47,19 @@ export default function Authentication() {
       email: "",
       password: "",
       name: "",
-      authType: selected,
+      authType: authType, // Used authType here
     },
-    validationSchema:
-      selected === "login"
-        ? Yup.object({
-            email: Yup.string()
-              .email("Invalid email address")
-              .required("Required"),
-            password: Yup.string().required("Required"),
-            authType: Yup.string(),
-          })
-        : Yup.object({
-            name: Yup.string().required("Required"),
-            email: Yup.string()
-              .email("Invalid email address")
-              .required("Required"),
-            password: Yup.string().required("Required"),
-            authType: Yup.string(),
-          }),
-    onSubmit: async (values) => {
-      if (values.authType === "login") {
+    validationSchema: Yup.object().shape({
+      email: Yup.string()
+        .email("Invalid email address")
+        .required("Required"),
+      password: Yup.string().required("Required"),
+      name: authType === "login" ? Yup.string() : Yup.string().required("Required"),
+    }),
+    onSubmit: async (values,actions) => {
+      if (authType === "login") { // Used authType here
         console.log("Form submitted with values:", values);
-        const adduser = async () => {
+        try {
           const result = await login({
             variables: {
               input: {
@@ -74,16 +71,36 @@ export default function Authentication() {
           if (!result.data) {
             errorToast("login failed");
           }
-        };
-        adduser(); // Call the login function for login case
+        } catch (error) {
+          errorToast("login failed");
+        }
       } else {
         console.log("Form submitted with values:", values);
-        errorToast("Registration not implemented yet");
+        try {
+          const result = await createUserData({
+            variables: {
+              input: {
+                email: values.email,
+                password: values.password,
+                name: values.name,
+              },
+            },
+          });
+          if (result?.data) {
+            successToast("Registration successful");
+            router.push("/dashboard");
+            actions.resetForm()
+          } else {
+            errorToast("Signup failed");
+          }
+        } catch (error:any) {
+          errorToast(error.message);
+        }
       }
     },
   });
 
-  if (loading) {
+  if (loading || createUserLoader) {
     return <SpinnerLoader />;
   }
 
@@ -96,7 +113,10 @@ export default function Authentication() {
             size="md"
             aria-label="Tabs form"
             selectedKey={selected}
-            onSelectionChange={setSelected}
+            onSelectionChange={(selectedKey) => {
+              setSelected(selectedKey);
+              setAuthType(selectedKey); // Update authType on tab selection change
+            }}
           >
             <Tab key="login" title="Login">
               <form
@@ -212,7 +232,10 @@ export default function Authentication() {
           </Tabs>
         </CardBody>
         <div className="justify-center items-center flex max-w-full w-[340px] mb-5">
-          <Button className=" bg-transparent hover:bg-gray-100  font-semibold py-2 px-4 border  rounded shadow flex items-center" onClick={signInHandler}>
+          <Button
+            className=" bg-transparent hover:bg-gray-100  font-semibold py-2 px-4 border  rounded shadow flex items-center"
+            onClick={signInHandler}
+          >
             <img
               className="h-6 w-6 mr-2"
               src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"

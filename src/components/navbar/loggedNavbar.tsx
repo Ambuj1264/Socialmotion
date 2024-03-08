@@ -10,8 +10,16 @@ import {
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
+import { signOut } from "next-auth/react";
+import { useRouter } from "next/navigation";
 
 export default function FullNavbar() {
+    const router= useRouter()
+    const logoutHandler= ()=>{
+        signOut();
+        localStorage.clear();
+         router.push("/login");
+    }
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -69,8 +77,8 @@ export default function FullNavbar() {
       </NavbarContent>
       <NavbarContent justify="end">
         <NavbarItem>
-          <Button as={Link} href="/login" variant="flat">
-            Login | Sign Up
+          <Button onClick={logoutHandler} variant="flat">
+           Logout
           </Button>
           &nbsp; <ThemeSwitcher />
         </NavbarItem>

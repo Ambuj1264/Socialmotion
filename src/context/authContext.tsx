@@ -1,11 +1,21 @@
-import React, { useContext } from 'react'
-export interface IAuth {
-    isLoggedIn: boolean;
-    authenticateUser: (token: string) => void;
-    logout: () => void;
-    isDashboard: boolean;
-  }
-export const AuthContext = React.createContext({} as IAuth);
+import { clearCookie, getCookie } from "@/hook/cookies";
+import React, { useEffect, useState } from "react";
 
-export const AuthContainer = AuthContext.Provider;
-export const useAuth = ()=>useContext(AuthContext)
+const useAuth = () => {
+
+  const [isLogin, setIsLogin] = useState(false);
+  useEffect(()=>{
+    const token = getCookie("authtoken");
+    if(token){
+      setIsLogin(true)
+    }
+  },[isLogin])
+  const signout = () => {
+    setIsLogin(false);
+    clearCookie("authtoken")
+  };
+
+  return { isLogin, signout };
+};
+
+export default useAuth;
