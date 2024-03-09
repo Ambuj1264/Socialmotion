@@ -1,10 +1,15 @@
 import { Button, Link } from "@nextui-org/react";
 import { BANNER_HEADING, BANNER_SUB_HEADING } from "@/utility/constant";
+import { getServerSession } from "next-auth";
+import LoggedNavBar from "@/components/navbar/loggedNavbar";
 import FullNavbar from "@/components/navbar/Navbar";
-export default function Home() {
+export default async function Home() {
+  const session :any= await getServerSession();
+  const userData= session?.user
+
   return (
     <>
-      <FullNavbar />
+  {session ? <LoggedNavBar data={userData}/> : <FullNavbar />}
         <div className="">
       <main className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
         <div className="flex flex-col items-center justify-center mb-12">

@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import React, { ReactNode, Suspense, useEffect, useLayoutEffect } from "react";
 const Layout: React.FC<{ children: ReactNode }> = async ({ children }) => {
   const session = await getServerSession();
-  console.log(session, "session-provider");
   if (session) {
     redirect("/dashboard")
   }

@@ -5,7 +5,6 @@ import { Providers } from "./providers";
 import Footer from "@/components/footer/Footer";
 import SessionProvider from "@/Hoc/SessionProvider";
 
-
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -13,7 +12,7 @@ export const metadata: Metadata = {
   description: "Social Motion",
 };
 
-export default function RootLayout({
+export default async function RootLayout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -21,12 +20,12 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body className={inter.className}>
-      <SessionProvider>
-        <Providers>
-          {children}
-          <Footer />
+        <SessionProvider>
+          <Providers>
+            {children}
+            <Footer />
           </Providers>
-          </SessionProvider>
+        </SessionProvider>
       </body>
     </html>
   );

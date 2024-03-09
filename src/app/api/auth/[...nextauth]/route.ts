@@ -27,7 +27,7 @@ const handler = NextAuth({
         credentials: Record<never, string> | undefined,
         req: Pick<any, "headers" | "body" | "query" | "method">
       ): Promise<User | null> {
-        const url = "http://localhost:5001/graphql";
+        const url = process.env.GRAPHQL_URL || "";
         const data = {
           input: {
             email: req?.body?.email,
@@ -58,8 +58,7 @@ const handler = NextAuth({
           });
 
           if (response.ok) {
-
-            console.log(response,"responseData");
+            console.log(response, "responseData");
             const responseData = await response.json();
             return responseData.data.login;
           } else {
@@ -76,16 +75,36 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-    async session({ session, user,token }: { session: any; user: User,token:any }) {
-        if (session && user && token) {          
-            if (!session.user) {
-                session.user = {};
+
+    async session({ session, user }) {
+        if (session) {
+      
+          try {
+            const response = await fetch("http://localhost:5001/createUserByProvider", {
+              method: "POST", // Change to POST method
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: session?.user?.email,
+                name: session?.user?.name,
+                image: session?.user?.image
+              }),
+            });
+      
+            if (!response.ok) {
+              throw new Error("Network response was not ok");
             }
-            session.user.id = user.id;
+      
+            const resData = await response.json(); // Await parsing JSON response
+          } catch (error:any) {
+            console.log("Error saving user data:", error.message);
+          }
         }
         return session;
-    },
-    async jwt({ token }) {
+      },
+      
+  async jwt({ token }) {
       return token;
     },
   },
