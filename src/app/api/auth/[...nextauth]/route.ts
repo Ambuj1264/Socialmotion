@@ -1,55 +1,94 @@
-// imports
-import NextAuth from "next-auth"
-export interface User  {
+import NextAuth from "next-auth";
+export interface User {
   id: string;
   name?: string | null | undefined;
   email?: string | null | undefined;
   image?: string | null | undefined;
-};
+}
 
-// importing providers
-import GithubProvider from "next-auth/providers/github"
+import GithubProvider from "next-auth/providers/github";
 import GoogleProvider from "next-auth/providers/google";
-// console.log( process.env.GITHUB_CLIENTID, process.env.GITHUB_CLIENT_SECRET, process.env.GOOGLE_CLIENTID, process.env.GOOGLE_CLIENT_SECRET,"process.env.GOOGLE_CLIENT_SECRET");
-
+import CredentialsProvider from "next-auth/providers/credentials";
 
 const handler = NextAuth({
-    providers: [
-        GithubProvider({
-            clientId: process.env.GITHUB_CLIENTID as string,
-            clientSecret: process.env.GITHUB_CLIENT_SECRET as string,
-        }),
-        GoogleProvider({
-            clientId: process.env.GOOGLE_CLIENTID as string,
-            clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
-          })
-    ],
-    pages:{
-      signIn:"/login"
-    },
-    callbacks: {
-      async session({ session, user,token }: { session: any; user: User,token:any }) {
-          // Check if session exists and has a user property
-          if (session && user && token) {
-              // Customize user data in the session
-              if (!session.user) {
-                  session.user = {};
-              }
-              session.user.id = user.id;
-              console.log(token,"token")
+  providers: [
+    GithubProvider({
+      clientId: process?.env?.GITHUB_CLIENTID as string,
+      clientSecret: process?.env?.GITHUB_CLIENT_SECRET as string,
+    }),
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENTID as string,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET as string,
+    }),
+    CredentialsProvider({
+      name: "my-auth",
+      credentials: {},
+      async authorize(
+        credentials: Record<never, string> | undefined,
+        req: Pick<any, "headers" | "body" | "query" | "method">
+      ): Promise<User | null> {
+        const url = "http://localhost:5001/graphql";
+        const data = {
+          input: {
+            email: req?.body?.email,
+            password: req?.body?.password,
+          },
+        };
+
+        try {
+          const response = await fetch(url, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              query: `
+                      query Login($input: CreateUserInput) {
+                        login(input: $input) {
+                          id
+                          email
+                          password
+                          name
+                          token
+                        }
+                      }
+                      `,
+              variables: data,
+            }),
+          });
+
+          if (response.ok) {
+
+            console.log(response,"responseData");
+            const responseData = await response.json();
+            return responseData.data.login;
+          } else {
+            throw new Error("Network response was not ok.");
           }
-          return session;
+        } catch (error) {
+          console.error("Error:", error);
+          return null;
+        }
       },
+    }),
+  ],
+  pages: {
+    signIn: "/login",
   },
-  
-  
-      // secret: process.env.NEXTAUTH_SECRET,
-      // jwt: {
-      //   secret: process.env.NEXTAUTH_SECRET,
-      //   maxAge: 60 * 60 * 24 * 30, // Change this to your desired token expiration
-      // },
-})
+  callbacks: {
+    async session({ session, user,token }: { session: any; user: User,token:any }) {
+        if (session && user && token) {          
+            if (!session.user) {
+                session.user = {};
+            }
+            session.user.id = user.id;
+        }
+        return session;
+    },
+    async jwt({ token }) {
+      return token;
+    },
+  },
+});
 
-export { handler as GET, handler as POST }
-
- 
+export { handler as GET, handler as POST };

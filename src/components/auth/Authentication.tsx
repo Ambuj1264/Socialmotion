@@ -1,6 +1,5 @@
-"use client"
+"use client";
 import React, { useState } from "react";
-
 import { useFormik } from "formik";
 import * as Yup from "yup";
 import {
@@ -19,12 +18,12 @@ import { signIn } from "next-auth/react";
 import SpinnerLoader from "../Loader/SpinnerLoader";
 import { useMutation } from "@apollo/client";
 import { createUser } from "@/hook/mutations/createUser";
-import { useRouter } from 'next/navigation';
+import { useRouter } from "next/navigation";
 import { setCookie } from "@/hook/cookies";
 
 export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
-  const router= useRouter();
+  const router = useRouter();
   const [authType, setAuthType] = useState<any>("login"); // Added authType state
   const [createUserData, { loading: createUserLoader }] =
     useMutation(createUser);
@@ -34,10 +33,8 @@ export default function Authentication() {
 
   const [login, { loading }] = useLazyQuery(loginQuery, {
     onCompleted: (data) => {
-      localStorage.setItem("TOKEN", data?.login?.token);
       successToast("login success");
-      setCookie("authtoken",data?.login?.token,30);
-      router.push('/dashboard');
+      router.push("/dashboard");
     },
   });
 
@@ -50,25 +47,27 @@ export default function Authentication() {
       authType: authType, // Used authType here
     },
     validationSchema: Yup.object().shape({
-      email: Yup.string()
-        .email("Invalid email address")
-        .required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
-      name: authType === "login" ? Yup.string() : Yup.string().required("Required"),
+      name:
+        authType === "login" ? Yup.string() : Yup.string().required("Required"),
     }),
-    onSubmit: async (values,actions) => {
-      if (authType === "login") { // Used authType here
+    onSubmit: async (values, actions) => {
+      if (authType === "login") {
+      
         console.log("Form submitted with values:", values);
         try {
-          const result = await login({
-            variables: {
-              input: {
-                email: values.email,
-                password: values.password,
-              },
-            },
+          const response = await signIn("credentials", {
+            email: values.email,
+            password: values.password,
+            callbackUrl: window.location.origin,
+            redirect: false,
           });
-          if (!result.data) {
+          if (response?.ok) {
+            successToast("Login Success");
+            router.push("/dashboard");
+
+          } else {
             errorToast("login failed");
           }
         } catch (error) {
@@ -89,11 +88,11 @@ export default function Authentication() {
           if (result?.data) {
             successToast("Registration successful");
             router.push("/dashboard");
-            actions.resetForm()
+            actions.resetForm();
           } else {
             errorToast("Signup failed");
           }
-        } catch (error:any) {
+        } catch (error: any) {
           errorToast(error.message);
         }
       }
@@ -233,7 +232,7 @@ export default function Authentication() {
         </CardBody>
         <div className="justify-center items-center flex max-w-full w-[340px] mb-5">
           <Button
-            className=" bg-transparent hover:bg-gray-100  font-semibold py-2 px-4 border  rounded shadow flex items-center"
+            className=" bg-transparent font-semibold py-2 px-4 border  rounded shadow flex items-center"
             onClick={signInHandler}
           >
             <img

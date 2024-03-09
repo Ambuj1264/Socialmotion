@@ -1,20 +1,16 @@
 "use client";
+import React, { ReactNode, Suspense, useEffect, useState } from "react";
+import LoggedNavBar from "@/components/navbar/loggedNavbar";
+import { Spinner } from "@nextui-org/react";
 
-import useAuth from "@/context/authContext";
-import { useRouter } from "next/navigation";
-import React, { ReactNode, useEffect } from "react";
+
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const router = useRouter();
-  const { isLogin: isLoggedIn } = useAuth();
-  console.log(isLoggedIn, "islogin");
-  useEffect(() => {
-    if (!isLoggedIn) {
-      router.push("/login");
-    }
-  }, [isLoggedIn]);
   return (
     <>
-      <main>{children}</main>
+      <Suspense fallback={<Spinner />}>
+        <LoggedNavBar />
+        {children}
+      </Suspense>
     </>
   );
 };

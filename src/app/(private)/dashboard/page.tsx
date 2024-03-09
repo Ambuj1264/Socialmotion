@@ -1,6 +1,5 @@
 import React, { Suspense } from "react";
 import { Card, CardHeader, CardBody, Image, Link } from "@nextui-org/react";
-import FreeImage from "@/assets/images/hero-card-complete.jpeg";
 import Skeletons from "@/components/themes/Skeltons";
 
 interface SocialMenuType {

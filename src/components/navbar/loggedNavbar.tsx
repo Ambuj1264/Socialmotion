@@ -13,13 +13,11 @@ import { ThemeSwitcher } from "../themes/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import { useRouter } from "next/navigation";
 
-export default function FullNavbar() {
-    const router= useRouter()
-    const logoutHandler= ()=>{
-        signOut();
-        localStorage.clear();
-         router.push("/login");
-    }
+export default function LoggedNavBar() {
+  const router = useRouter();
+  const logoutHandler = (e: any) => { 
+    signOut();
+  };
   const menuItems = [
     "Profile",
     "Dashboard",
@@ -78,7 +76,7 @@ export default function FullNavbar() {
       <NavbarContent justify="end">
         <NavbarItem>
           <Button onClick={logoutHandler} variant="flat">
-           Logout
+            Logout
           </Button>
           &nbsp; <ThemeSwitcher />
         </NavbarItem>
