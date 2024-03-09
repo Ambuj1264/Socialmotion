@@ -20,6 +20,7 @@ import { useMutation } from "@apollo/client";
 import { createUser } from "@/hook/mutations/createUser";
 import { useRouter } from "next/navigation";
 import { setCookie } from "@/hook/cookies";
+import Image from "next/image";
 
 export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
@@ -235,7 +236,7 @@ export default function Authentication() {
             className=" bg-transparent font-semibold py-2 px-4 border  rounded shadow flex items-center"
             onClick={signInHandler}
           >
-            <img
+            <Image
               className="h-6 w-6 mr-2"
               src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
               alt="Google Logo"
