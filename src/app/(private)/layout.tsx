@@ -7,7 +7,6 @@ import { getServerSession } from "next-auth";
 
 const Layout: React.FC<{ children: ReactNode }> = async({ children }) => {
   const session = await getServerSession();
-  console.log(session,"session")
   const userData= session?.user
 
   return (
