@@ -1,9 +1,11 @@
 // Sidebar.js
 
 import Link from "next/link";
-import React, { useState, useEffect, ReactNode } from "react";
-
-const Sidebar = ({ data }: { data: ReactNode }) => {
+import React, { useState, useEffect, ReactNode, ReactPropTypes } from "react";
+export interface SideBarInterFace{
+  key: String; link: String; name: String; 
+}
+const Sidebar = ({ data }: { data: SideBarInterFace[] }) => {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleSidebar = () => {
