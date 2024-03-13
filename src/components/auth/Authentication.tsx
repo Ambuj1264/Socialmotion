@@ -131,7 +131,7 @@ export default function Authentication() {
                   isRequired
                   label="Email"
                   placeholder="Enter your email"
-                  type="email"
+                  type="text"
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <span className="text-red-500 px-3 text-xs">
@@ -194,7 +194,7 @@ export default function Authentication() {
                   isRequired
                   label="Email"
                   placeholder="Enter your email"
-                  type="email"
+                  type="text"
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <span className="text-red-500 px-3 text-xs">

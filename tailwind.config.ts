@@ -10,8 +10,8 @@ const config: Config = {
     "./src/app/**/*.{js,ts,jsx,tsx,mdx}",
     "./node_modules/@nextui-org/theme/dist/components/button.js",
     "./node_modules/@nextui-org/theme/dist/**/*.{js,ts,jsx,tsx}",
-    "./node_modules/@nextui-org/theme/dist/components/(button|snippet|code|input).js",
-    "./node_modules/flowbite/**/*.js",
+    "./node_modules/@nextui-org/theme/dist/components/(button|snippet|code|input).js"
+   
   ],
   theme: {
     extend: {
@@ -26,7 +26,7 @@ const config: Config = {
     },
   },
   darkMode: "class",
-  plugins: [nextui(), require("flowbite/plugin"), addVariablesForColors],
+  plugins: [nextui(), addVariablesForColors],
 };
 
 function addVariablesForColors({ addBase, theme }: any) {

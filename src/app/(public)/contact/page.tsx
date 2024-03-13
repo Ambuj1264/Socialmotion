@@ -64,7 +64,7 @@ export default function Contact() {
                   isRequired
                   label="Email"
                   placeholder="Enter your email"
-                  type="email"
+                  type="text"
                 />
                 {formik.touched.email && formik.errors.email ? (
                   <span className="text-red-500 px-3 text-xs">
@@ -79,7 +79,7 @@ export default function Contact() {
                   isRequired
                   label="Mobile number"
                   placeholder="Enter your Mobile number"
-                  type="Mobile Number"
+                  type="tel"
                 />
                 {formik.touched.mobileNumber && formik.errors.mobileNumber ? (
                   <span className="text-red-500 px-3 text-xs ">
@@ -94,7 +94,7 @@ export default function Contact() {
                   isRequired
                   label="Message"
                   placeholder="Enter your name"
-                  type="text"
+                  // type="text"
                 />
                 {formik.touched.message && formik.errors.message ? (
                   <span className="text-red-500 px-3 text-xs ">

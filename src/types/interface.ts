@@ -3,3 +3,12 @@ export interface FacebookData {
   link: string;
   name: string;
 }
+
+
+export interface SocialMenuType {
+  details: string;
+  toolNo: string;
+  name: string;
+  addr: string;
+  imgAddr: string;
+}

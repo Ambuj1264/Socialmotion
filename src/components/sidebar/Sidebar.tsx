@@ -4,7 +4,7 @@ import React from "react";
 
 const Sidebar = ({ data }: { data: FacebookData[] }) => {
   return (
-    <div className="bg-black h-full w-64 fixed left-0 overflow-y-auto z-10 border-r border-white">
+    <div className="bg-black min-h-full w-64  left-0 overflow-y-auto z-10 border-r border-white">
       <div className="px-4 py-6">
         <ul className="mt-8">
           {data?.map((value: FacebookData, index: number) => (
