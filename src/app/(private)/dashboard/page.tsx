@@ -17,21 +17,21 @@ const Menu = () => {
       toolNo: "5 Free and 10 Paid  tools",
       name: "Facebook",
       addr: "/product/facebook",
-      imgAddr:"image/hero-card-complete.jpeg"
+      imgAddr:"image/facebook-logo-3d-social-media-icon-isolated/m024t0256_b_facebook_17oct22.jpg"
     },
     {
-      details: "Daily Mix",
+      details: "Automate Your Instagram Account",
       toolNo: "Coming soon..",
       name: "Instagram",
       addr: "/",
-      imgAddr:"image/hero-card-complete.jpeg"
+      imgAddr:"image/instagram-icon-3d-rendering-isolated/m024t0252_a_social_media_icon_12oct22.jpg"
     },
     {
-      details: "Daily Mix",
+      details: "Automate Your Linkedin Account",
       toolNo: "Coming soon..",
       name: "Linkedin",
       addr: "/",
-      imgAddr:"image/hero-card-complete.jpeg"
+      imgAddr:"image/social-media-linkedin-3d-icon-render-with-transparent-background-linkedin-3d-icon-illustration_740533-279-transformed.jpeg"
     },
     {
       details: "Daily Mix",
@@ -70,7 +70,9 @@ const Menu = () => {
                           alt="Card background"
                           className="object-cover rounded-xl"
                           src={value?.imgAddr}
-                          width={270}
+                          width={"270px"}
+                          height={"177px"}
+                          style={{width:"270px",height:"177px" }}
                         />
                       </CardBody>
                     </Card>

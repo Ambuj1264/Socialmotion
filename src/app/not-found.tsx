@@ -1,7 +1,14 @@
+"use client";
+
 import { Button } from "@nextui-org/react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 export default function NotFound() {
+  const router = useRouter();
+  const handler =()=>{
+    router.push("/")
+  }
   return (
     <div className="flex justify-center items-center w-full min-h-screen">
       <div className="block">
@@ -13,13 +20,11 @@ export default function NotFound() {
 
         <div className="relative">
           <Button
-            as={Link}
             color="primary"
-            href="/"
+            onClick={() =>handler()}
             className="cursor-pointer"
             variant="shadow"
           >
-           
             <svg
               aria-hidden="true"
               fill="none"
@@ -47,8 +52,7 @@ export default function NotFound() {
                 strokeWidth="2"
               ></path>
             </svg>
-            &nbsp; 
-           Go to Home
+            &nbsp; Go to Home
           </Button>
         </div>
       </div>

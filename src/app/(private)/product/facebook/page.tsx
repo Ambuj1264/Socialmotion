@@ -1,44 +1,16 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { useMutation } from "@apollo/client";
 import { Spinner } from "@nextui-org/react";
 import Sidebar from "@/components/sidebar/Sidebar";
 
 function ManageExtensions() {
-  // const { authToken, loginId } = useLocalStorage();
   const [checkApproval, setCheckApproval] = useState<any>();
   const [loginUser, setLoginUser] = useState();
 
-  // useEffect(() => {
-  //   const loggedUser = JSON.parse(localStorage.getItem("USer"))?.login;
-  //   setLoginUser(loggedUser?.id);
-  //   checkcheckoutAccess();
-  // }, [loginUser, checkApproval]);
-
-  // const [checkoutUserAccess, { loading }] = useMutation(
-  //   checkoutUserSubscription,
-  //   {
-  //     context: {
-  //       headers: {
-  //         Authorization: `Bearer ${authToken}`,
-  //       },
-  //     },
-  //   }
-  // );
-
-  // const checkcheckoutAccess = async () => {
-  //   try {
-  //     const result = await checkoutUserAccess({
-  //       variables: {
-  //         userId: loginId,
-  //       },
-  //     });
-  //     setCheckApproval(result?.data?.subscriptionCheckByUser?.approved);
-  //   } catch (error:any) {
-  //     setCheckApproval(false);
-  //     throw new Error(error?.message);
-  //   }
-  // };
+  useEffect(() => {
+    // Your useEffect logic here
+    // Uncomment and implement as needed
+  }, [loginUser, checkApproval]);
 
   const myExtension = (url: string) => {
     location.href = url;
@@ -47,23 +19,10 @@ function ManageExtensions() {
   // if (loading) {
   //   return <Spinner />;
   // }
-  const FacebookData = [
-    {
-      key: "facebookextension",
-      link: "/product/facebookextension",
-      name:"Manage Extension"
-    },
-    {
-      key: "becameamember",
-      link: "/product/becameamember",
-      name:"Became a Member"
-    },
-  ];
 
   return (
     <>
-      <div className="flex min-h-screen justify-center w-full overflow-hidden">
-        <Sidebar data={FacebookData}/>
+      <div className="flex min-h-screen w-70 justify-center  overflow-hidden">
         <div className="m-10 ">
           <div className="flex justify-center ">
             <div className="p-4 w-full">
@@ -89,7 +48,9 @@ function ManageExtensions() {
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() =>
-                      myExtension("/extension/Paid8523147fasdfasdf.zip")
+                      myExtension(
+                        "/extension/Paid8523147fasdfasdf.zip"
+                      )
                     }
                   >
                     Download Chrome extension
