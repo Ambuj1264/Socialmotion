@@ -238,6 +238,8 @@ export default function Authentication() {
           >
             <Image
               className="h-6 w-6 mr-2"
+              width={100}
+              height={100}
               src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
               alt="Google Logo"
             />

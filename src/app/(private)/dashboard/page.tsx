@@ -16,7 +16,7 @@ const Menu = () => {
       details: "Automate Your Facebook Account",
       toolNo: "5 Free and 10 Paid  tools",
       name: "Facebook",
-      addr: "/facebookautomationfirst",
+      addr: "/product/facebook",
       imgAddr:"image/hero-card-complete.jpeg"
     },
     {

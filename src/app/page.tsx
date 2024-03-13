@@ -46,18 +46,18 @@ export default async function Home() {
                   <path
                     d="M16.835 6.91821L23.9166 13.9999L16.835 21.0815"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-miterlimit="10"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
                   ></path>
                   <path
                     d="M4.08325 14H23.7183"
                     stroke="currentColor"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    stroke-miterlimit="10"
-                    stroke-width="2"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeMiterlimit="10"
+                    strokeWidth="2"
                   ></path>
                 </svg>
               </Button>
