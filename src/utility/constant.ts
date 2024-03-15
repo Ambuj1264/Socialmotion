@@ -57,40 +57,39 @@ export const sidebarPathNames = [
 ];
 export const FacebookTool = [
   {
-    title: "Request Cancellation Tool",
+    title: "Friend Request Canceller",
     description:
-      "Cancel Your Pending Sent Friend Requests Via Automation",
+      "Easily cancel pending friend requests with automation.",
     link: "#",
   },
   {
-    title: "Automatic Comment Reply Tool",
+    title: "Auto Comment Responder",
     description:
-      "In This Tool You Can Reply The Comment Your Fans",
+      "Respond to your fans' comments automatically.",
     link: "#",
   },
   {
-    title: "Delete Message Automation",
+    title: "Message Deletion Tool",
     description:
-      "Delete Message On One Click, Delete Your Useless Message",
+      "Effortlessly delete unnecessary messages with a single click.",
     link: "#",
   },
   {
-    title: "Delete Group Automation",
+    title: "Group Deletion Automation",
     description:
-      "Delete Your Unnessary Group, By Using Automation",
+      "Swiftly remove unnecessary groups using automation.",
     link: "#",
   },
   {
-    title: "Message Automation Tool",
+    title: "Message Sender Automation",
     description:
-      "Send The Mesagae For Multiple Friends By One Click Automation",
+      "Send messages to multiple friends with one click.",
     link: "#",
   },
   {
-    title: "UnFriend Inactive Friends Tool",
+    title: "Inactive Friends Unfriender",
     description:
-      "This Tool For UnFriend Inactive Friends Tool Because Facebook Only Allow 5000 Friend On Your Friend List",
+      "Easily remove inactive friends to maintain your friend list.",
     link: "#",
   },
-  
 ];
