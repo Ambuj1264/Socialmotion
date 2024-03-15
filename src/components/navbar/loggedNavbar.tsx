@@ -96,8 +96,8 @@ export default function LoggedNavBar({ data }: any) {
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
-          <Link href="/dashboard" aria-current="page">
+        <NavbarItem >
+          <Link href="/dashboard" color="foreground">
             Your Automation
           </Link>
         </NavbarItem>
@@ -106,8 +106,8 @@ export default function LoggedNavBar({ data }: any) {
             Contact Us
           </Link>
         </NavbarItem>
-        <NavbarItem>
-          <Link color="foreground" href="/buy">
+        <NavbarItem isActive>
+          <Link  href="/buy" aria-current="page">
             Buy Products
           </Link>
         </NavbarItem>
