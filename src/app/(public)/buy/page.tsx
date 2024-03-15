@@ -1,18 +1,14 @@
-import { Buyyouproduct, SocialMenu, priceSocialMenu } from "@/utility/constant";
-import { Button, Card, CardBody, CardHeader } from "@nextui-org/react";
-import Link from "next/link";
+import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
+import { Button, Card, CardHeader } from "@nextui-org/react";
 import React from "react";
 
 const BuyNow = () => {
   return (
     <>
-
       <div className="min-h-screen my-9">
-      <div className="my-8 flex flex-col justify-center items-center ">
+        <div className="my-8 flex flex-col justify-center items-center ">
           <div className="p-5  border border-grey-450 w-96 rounded-md">
-            <h2 className="text-center">
-              {Buyyouproduct}
-            </h2>
+            <h2 className="text-center">{Buyyouproduct}</h2>
           </div>
         </div>
         <div className="flex flex-wrap justify-evenly items-center ">

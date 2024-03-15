@@ -4,7 +4,8 @@ export const BRAND_NAME = "SOCIAL MOTION";
 export const BANNER_HEADING = "Welcome to Social Motion";
 export const BANNER_SUB_HEADING =
   "Automate Your Social Media with Social Motion";
-export const Buyyouproduct="BUY YOUR FAVOURITE PRODUCTS"
+export const Buyyouproduct = "BUY YOUR FAVOURITE PRODUCTS";
+export const BuySingleproduct = "BUY YOUR FAVOURITE PRODUCT";
 export const SocialMenu: SocialMenuType[] = [
   {
     details: "Automate Your Facebook Account",
@@ -44,30 +45,28 @@ export const priceSocialMenu: SocialMenuType[] = [
     toolNo: "5 Free and 10 Paid  tools",
     name: "Facebook",
     addr: "/product/facebook/manageextension",
-    price : "40"
+    price: "40",
   },
   {
     details: "Automate Your Instagram Account",
     toolNo: "Coming soon..",
     name: "Instagram",
     addr: "#",
-    price : ""
+    price: "",
   },
   {
     details: "Automate Your Linkedin Account",
     toolNo: "Coming soon..",
     name: "Linkedin",
     addr: "#",
-    price : ""
-   
+    price: "",
   },
   {
     details: "Automate Your Official Website",
     toolNo: "Order tool",
     name: "Your Website",
     addr: "/contact",
-    price : "100"
-
+    price: "100",
   },
 ];
 
@@ -76,6 +75,11 @@ export const FacebookData: FacebookDataInterface[] = [
     key: "facebookextension",
     link: "/product/facebook/manageextension",
     name: "Manage Extension",
+  },
+  {
+    key: "BuyNow",
+    link: "/buynow/Facebook",
+    name: "Buy Now",
   },
   {
     key: "becameamember",
@@ -91,14 +95,12 @@ export const sidebarPathNames = [
 export const FacebookTool = [
   {
     title: "Friend Request Canceller",
-    description:
-      "Easily cancel pending friend requests with automation.",
+    description: "Easily cancel pending friend requests with automation.",
     link: "/demoDetails/FriendRequestCanceller",
   },
   {
     title: "Auto Comment Responder",
-    description:
-      "Respond to your fans' comments automatically.",
+    description: "Respond to your fans' comments automatically.",
     link: "#",
   },
   {
@@ -109,20 +111,17 @@ export const FacebookTool = [
   },
   {
     title: "Group Deletion Automation",
-    description:
-      "Swiftly remove unnecessary groups using automation.",
+    description: "Swiftly remove unnecessary groups using automation.",
     link: "#",
   },
   {
     title: "Message Sender Automation",
-    description:
-      "Send messages to multiple friends with one click.",
+    description: "Send messages to multiple friends with one click.",
     link: "#",
   },
   {
     title: "Inactive Friends Unfriender",
-    description:
-      "Easily remove inactive friends to maintain your friend list.",
+    description: "Easily remove inactive friends to maintain your friend list.",
     link: "#",
   },
 ];
