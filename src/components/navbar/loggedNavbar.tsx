@@ -106,6 +106,11 @@ export default function LoggedNavBar({ data }: any) {
             Contact Us
           </Link>
         </NavbarItem>
+        <NavbarItem>
+          <Link color="foreground" href="/buy">
+            Buy Products
+          </Link>
+        </NavbarItem>
       </NavbarContent>
       <NavbarContent as="div" justify="end">
         <Dropdown placement="bottom-end">

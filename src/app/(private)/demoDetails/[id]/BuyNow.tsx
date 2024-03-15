@@ -6,7 +6,7 @@ import React from 'react'
 const BuyNow = () => {
     const router = useRouter();
     const handler =()=>{
-        router.push("/product/buy")
+        router.push("/buy")
     }
   return (
     <>
