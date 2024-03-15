@@ -4,6 +4,7 @@ export const BRAND_NAME = "SOCIAL MOTION";
 export const BANNER_HEADING = "Welcome to Social Motion";
 export const BANNER_SUB_HEADING =
   "Automate Your Social Media with Social Motion";
+export const Buyyouproduct="BUY YOUR FAVOURITE PRODUCTS"
 export const SocialMenu: SocialMenuType[] = [
   {
     details: "Automate Your Facebook Account",
@@ -30,11 +31,43 @@ export const SocialMenu: SocialMenuType[] = [
       "image/social-media-linkedin-3d-icon-render-with-transparent-background-linkedin-3d-icon-illustration_740533-279-transformed.jpeg",
   },
   {
-    details: "Automat ",
-    toolNo: "No. of Tools",
+    details: "Automate Your Official Website",
+    toolNo: "Order tool",
     name: "Your Website",
-    addr: "#",
+    addr: "/contact",
     imgAddr: "image/hero-card-complete.jpeg",
+  },
+];
+export const priceSocialMenu: SocialMenuType[] = [
+  {
+    details: "Automate Your Facebook Account",
+    toolNo: "5 Free and 10 Paid  tools",
+    name: "Facebook",
+    addr: "/product/facebook/manageextension",
+    price : "40"
+  },
+  {
+    details: "Automate Your Instagram Account",
+    toolNo: "Coming soon..",
+    name: "Instagram",
+    addr: "#",
+    price : ""
+  },
+  {
+    details: "Automate Your Linkedin Account",
+    toolNo: "Coming soon..",
+    name: "Linkedin",
+    addr: "#",
+    price : ""
+   
+  },
+  {
+    details: "Automate Your Official Website",
+    toolNo: "Order tool",
+    name: "Your Website",
+    addr: "/contact",
+    price : "100"
+
   },
 ];
 

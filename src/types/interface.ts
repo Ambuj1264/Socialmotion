@@ -10,5 +10,6 @@ export interface SocialMenuType {
   toolNo: string;
   name: string;
   addr: string;
-  imgAddr: string;
+  imgAddr?: string;
+  price?: string;
 }
