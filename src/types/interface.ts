@@ -1,4 +1,4 @@
-export interface FacebookData {
+export interface FacebookDataInterface {
   key: string;
   link: string;
   name: string;

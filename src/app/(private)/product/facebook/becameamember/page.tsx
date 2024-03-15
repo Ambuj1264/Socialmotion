@@ -1,15 +1,13 @@
 "use client";
 import React, { useEffect, useState } from "react";
-import { Spinner } from "@nextui-org/react";
-import Sidebar from "@/components/sidebar/Sidebar";
+import { useSelector } from "react-redux";
 
-function ManageExtensions() {
+function BecameMember() {
   const [checkApproval, setCheckApproval] = useState<any>();
   const [loginUser, setLoginUser] = useState();
 
   useEffect(() => {
-    // Your useEffect logic here
-    // Uncomment and implement as needed
+
   }, [loginUser, checkApproval]);
 
   const myExtension = (url: string) => {
@@ -19,10 +17,12 @@ function ManageExtensions() {
   // if (loading) {
   //   return <Spinner />;
   // }
+  const state = useSelector((state: any) => state?.sidebar?.payload);
+  console.log(state, "facebook");
 
   return (
     <>
-      <div className="flex  min-h-screen  justify-center  overflow-hidden ">
+      <div className={`${state ? "w-screen " : ""} overflow-hidden mt-10`}>
         <div className="m-10 ">
           <div className="flex justify-center ">
             <div className="p-4 w-full">
@@ -56,9 +56,21 @@ function ManageExtensions() {
                 ) : (
                   <div className="inline-block">
                     <button className="bg-gray-500 text-white font-bold py-2 px-4 rounded cursor-not-allowed">
-                      Download Chrome extension
+                      <svg
+                        xmlns="http://www.w3.org/2000/svg"
+                        viewBox="0 0 20 20"
+                        fill="currentColor"
+                        className="inline-block w-6 h-6"
+                      >
+                        <path
+                          fill-rule="evenodd"
+                          d="M10 18a8 8 0 100-16 8 8 0 000 16zm1-11a1 1 0 00-1 1v4.07l-1.12-.67a1 1 0 10-1.02 1.72l2 1.2a1 1 0 001 0l2-1.2a1 1 0 00-.5-1.92L11 11.07V8a1 1 0 00-1-1z"
+                          clip-rule="evenodd"
+                        />
+                      </svg>
+                      &nbsp; Download Chrome extension
                     </button>
-                    <div className="text-sm text-gray-500 mt-2">
+                    <div className="text-sm mt-2">
                       This option will be available when you become a member
                     </div>
                   </div>
@@ -72,4 +84,4 @@ function ManageExtensions() {
   );
 }
 
-export default ManageExtensions;
+export default BecameMember;

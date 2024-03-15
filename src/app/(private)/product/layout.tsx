@@ -1,21 +1,10 @@
 import React, { ReactNode, Suspense } from "react";
 import { Spinner } from "@nextui-org/react";
 import Sidebar from "@/components/sidebar/Sidebar";
-import { FacebookData } from "@/types/interface";
+import { FacebookData } from "@/utility/constant";
 
 const Layout: React.FC<{ children: ReactNode }> = ({ children }) => {
-  const FacebookData: FacebookData[] = [
-    {
-      key: "facebookextension",
-      link: "/product/facebookextension",
-      name: "Manage Extension",
-    },
-    {
-      key: "becameamember",
-      link: "/product/becameamember",
-      name: "Became a Member",
-    },
-  ];
+  
   return (
     <>
       <Suspense fallback={<Spinner />}>

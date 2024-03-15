@@ -7,8 +7,7 @@ import { SparklesPreview } from "@/components/ui/SparklesPreview";
 import { TypewriterEffectDemo } from "@/components/ui/TypewriterEffectDemo";
 export default async function Home() {
   const session: any = await getServerSession();
-  const userData = session?.user;
-
+  const userData = session?.user
   return (
     <>
       {session ? <LoggedNavBar data={userData} /> : <FullNavbar />}

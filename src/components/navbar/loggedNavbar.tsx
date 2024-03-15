@@ -1,5 +1,5 @@
-'use client';
-import React from "react";
+"use client";
+import React, { useEffect, useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -13,10 +13,28 @@ import {
   DropdownItem,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
-import { BRAND_NAME } from "@/utility/constant";
+import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
 import { signOut } from "next-auth/react";
-export default  function LoggedNavBar({data}:any) {
+import { useDispatch, useSelector } from "react-redux";
+import { usePathname } from "next/navigation";
+import { sidebar } from "@/redux/Action";
+export default function LoggedNavBar({ data }: any) {
+  const [pathState, setPathState] = useState<boolean>(false);
+  const state :any= useSelector((state) => state);
+
+
+  const pathname = usePathname();
+  const dispatch = useDispatch();
+  const sidebarHandler=()=>{
+    dispatch(sidebar(!(state?.sidebar?.payload)))
+  }
+  useEffect(() => {
+    setPathState(sidebarPathNames.includes(pathname));
+  }, [state?.sidebar?.payload]);
+
+  console.log(state?.sidebar?.payload, "state");
+
   const logoutHandler = (e: any) => {
     signOut();
   };
@@ -33,7 +51,8 @@ export default  function LoggedNavBar({data}:any) {
     "Log Out",
   ];
   return (
-    <Navbar
+    <>
+       <Navbar
       isBordered
       classNames={{
         item: [
@@ -52,12 +71,25 @@ export default  function LoggedNavBar({data}:any) {
         ],
       }}
     >
-      <NavbarBrand>
-        <Link color="foreground" href="/">
-          <AcmeLogo />
-          <p className="font-bold text-inherit">{BRAND_NAME}</p>
-        </Link>
-      </NavbarBrand>
+      {pathState ? (
+  <span className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110" onClick={sidebarHandler}>
+    <span className="w-6 h-0.5 bg-gray-800 mb-1" />
+    <span className="w-6 h-0.5 bg-gray-800 mb-1" />
+    <span className="w-6 h-0.5 bg-gray-800" />
+  </span>
+) : null}
+
+ 
+    
+        <NavbarBrand>
+          <div className="flex flex-col justify-center items-center">
+            <Link color="foreground" href="/">
+              <AcmeLogo />
+              <p className="font-bold text-inherit">{BRAND_NAME}</p>
+            </Link>
+          </div>
+        </NavbarBrand>
+     
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
           <Link color="foreground" href="/">
@@ -85,13 +117,19 @@ export default  function LoggedNavBar({data}:any) {
               color="secondary"
               name="Jason Hughes"
               size="sm"
-              src={data?.image ? data?.image: `https://i.pravatar.cc/150?u=a042581f4e29026704d`}
+              src={
+                data?.image
+                  ? data?.image
+                  : `https://i.pravatar.cc/150?u=a042581f4e29026704d`
+              }
             />
           </DropdownTrigger>
           <DropdownMenu aria-label="Profile Actions" variant="flat">
             <DropdownItem key="profile" className="h-14 gap-2">
               <p className="font-semibold">Signed in as</p>
-              <p className="font-semibold">{data?.name? data?.name: "john doe"}</p>
+              <p className="font-semibold">
+                {data?.name ? data?.name : "john doe"}
+              </p>
             </DropdownItem>
             <DropdownItem key="logout" color="danger" onClick={logoutHandler}>
               Log Out
@@ -101,5 +139,6 @@ export default  function LoggedNavBar({data}:any) {
         &nbsp; <ThemeSwitcher />
       </NavbarContent>
     </Navbar>
+    </>
   );
 }
