@@ -60,7 +60,7 @@ export const FacebookTool = [
     title: "Friend Request Canceller",
     description:
       "Easily cancel pending friend requests with automation.",
-    link: "#",
+    link: "/demoDetails/FriendRequestCanceller",
   },
   {
     title: "Auto Comment Responder",
