@@ -1,9 +1,8 @@
 import React from "react";
-import "./success.css"
+import "./success.css";
 import HomeButton from "../../../components/button/SuccessButton";
 
 const SuccessPage = () => {
-
   return (
     <div className="flex h-screen items-center justify-center">
       <div className="text-center">
@@ -35,7 +34,7 @@ const SuccessPage = () => {
           <h1 className="text-3xl font-bold mb-2">Payment Successful!</h1>
           <p className="text-lg">Thank you for your payment.</p>
         </div>
-         <HomeButton />
+        <HomeButton />
       </div>
     </div>
   );

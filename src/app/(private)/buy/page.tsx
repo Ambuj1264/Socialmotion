@@ -7,7 +7,8 @@ import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import React from "react";
 
 const BuyNow = () => {
-  const [paymentcheckout,loading] = useMutation(paymentCheckout,
+  const [paymentcheckout, loading] = useMutation(
+    paymentCheckout
     //      {
     //   context: {
     //     headers: {
@@ -15,25 +16,25 @@ const BuyNow = () => {
     //     },
     //   },
     // }
-    );
-      const handler =async()=>{
-        try {
-          const result = await paymentcheckout({
-            variables: {
-              userId:"65ec8f661ec78b2e8bac69b5",
-            },
-          });
-    
-          if (result.data) {
-            successToast("success");
-            window.location.href = result?.data?.paymentCheckout;
-          }
-        } catch (error: any) {
-          errorToast(error.message);
+  );
+  const handler = async (data: string) => {
+    try {
+      if (data === "Facebook") {
+        const result = await paymentcheckout({
+          variables: {
+            userId: "65ec8f661ec78b2e8bac69b5",
+          },
+        });
+        if (result.data) {
+          successToast("success");
+          window.location.href = result?.data?.paymentCheckout;
         }
       }
-  
- 
+    } catch (error: any) {
+      errorToast(error.message);
+    }
+  };
+
   return (
     <>
       <div className="min-h-screen my-9">
@@ -59,7 +60,11 @@ const BuyNow = () => {
                   </CardHeader>
 
                   <div className="flex justify-center my-5">
-                    <Button color="primary" variant="shadow" onClick={handler}>
+                    <Button
+                      color="primary"
+                      variant="shadow"
+                      onClick={() => handler(value?.name)}
+                    >
                       Buy Now
                     </Button>
                   </div>
