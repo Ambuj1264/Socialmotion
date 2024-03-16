@@ -13,3 +13,17 @@ export interface SocialMenuType {
   imgAddr?: string;
   price?: string;
 }
+
+export interface UserRequestBody {
+  email: string;
+  password?: string;
+  name?: string;
+  image?: string;
+}
+
+export interface Session {
+  customer: string;
+  amount_total: number;
+  created: number;
+}
+
