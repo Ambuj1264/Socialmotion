@@ -31,11 +31,11 @@ const SuccessPage = () => {
             />
           </svg>
         </div>
-        <div>
+        <div className="mb-5">
           <h1 className="text-3xl font-bold mb-2">Payment Successful!</h1>
           <p className="text-lg">Thank you for your payment.</p>
-         <HomeButton />
         </div>
+         <HomeButton />
       </div>
     </div>
   );
