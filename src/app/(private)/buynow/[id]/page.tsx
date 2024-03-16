@@ -36,7 +36,7 @@ const BuyComponent = () => {
     }
 
     if(loading){
-      return <Spinner/>
+       <Spinner/>
 
     }
   return (
