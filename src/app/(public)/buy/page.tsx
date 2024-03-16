@@ -1,8 +1,39 @@
+"use client";
+import { paymentCheckout } from "@/hook/mutations/payment";
+import { errorToast, successToast } from "@/utility/Toast";
 import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
-import { Button, Card, CardHeader } from "@nextui-org/react";
+import { useMutation } from "@apollo/client";
+import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import React from "react";
 
 const BuyNow = () => {
+  const [paymentcheckout,loading] = useMutation(paymentCheckout,
+    //      {
+    //   context: {
+    //     headers: {
+    //       Authorization: `Bearer ${authKey}`,
+    //     },
+    //   },
+    // }
+    );
+      const handler =async()=>{
+        try {
+          const result = await paymentcheckout({
+            variables: {
+              userId:"65ec8f661ec78b2e8bac69b5",
+            },
+          });
+    
+          if (result.data) {
+            successToast("success");
+            window.location.href = result?.data?.paymentCheckout;
+          }
+        } catch (error: any) {
+          errorToast(error.message);
+        }
+      }
+  
+ 
   return (
     <>
       <div className="min-h-screen my-9">
@@ -28,7 +59,7 @@ const BuyNow = () => {
                   </CardHeader>
 
                   <div className="flex justify-center my-5">
-                    <Button color="primary" variant="shadow">
+                    <Button color="primary" variant="shadow" onClick={handler}>
                       Buy Now
                     </Button>
                   </div>

@@ -1,11 +1,44 @@
 "use client";
 import React from "react";
-import { Button, Card, CardHeader } from "@nextui-org/react";
+import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import { BuySingleproduct, priceSocialMenu } from "@/utility/constant";
 import { useParams } from "next/navigation";
+import { useMutation } from "@apollo/client";
+import { paymentCheckout } from "@/hook/mutations/payment";
+import { errorToast, successToast } from "@/utility/Toast";
 const BuyComponent = () => {
   const { id } :any= useParams();
   const data = priceSocialMenu.filter((value) => value?.name==id?.charAt(0).toUpperCase() + id?.slice(1));
+    const [paymentcheckout,loading] = useMutation(paymentCheckout,
+  //      {
+  //   context: {
+  //     headers: {
+  //       Authorization: `Bearer ${authKey}`,
+  //     },
+  //   },
+  // }
+  );
+    const handler =async()=>{
+      try {
+        const result = await paymentcheckout({
+          variables: {
+            userId:"65ec8f661ec78b2e8bac69b5",
+          },
+        });
+  
+        if (result.data) {
+          successToast("success");
+          window.location.href = result?.data?.paymentCheckout;
+        }
+      } catch (error: any) {
+        errorToast(error.message);
+      }
+    }
+
+    if(loading){
+      return <Spinner/>
+
+    }
   return (
     <>
       <div className="flex justify-center items-center">
@@ -30,7 +63,7 @@ const BuyComponent = () => {
                 </CardHeader>
 
                 <div className="flex justify-center my-5">
-                  <Button color="primary" variant="shadow">
+                  <Button color="primary" variant="shadow" onClick={handler}>
                     Buy Now
                   </Button>
                 </div>
