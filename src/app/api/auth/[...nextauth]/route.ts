@@ -23,40 +23,19 @@ const handler = NextAuth({
     CredentialsProvider({
       name: "my-auth",
       credentials: {},
-      async authorize(
-        credentials: Record<never, string> | undefined,
-        req: Pick<any, "headers" | "body" | "query" | "method">
-      ): Promise<User | null> {
-        const url = process.env.GRAPHQL_URL || "";
-        const data = {
-          input: {
-            email: req?.body?.email,
-            password: req?.body?.password,
-          },
-        };
-
+      async authorize(credentials: Record<never, string> | undefined, req: Pick<any, "headers" | "body" | "query" | "method">): Promise<User | null> {
+        console.log({email: req?.body?.email,
+          password: req?.body?.password}, "req.body");
         try {
-          const response = await fetch(url, {
+          const response = await fetch(`${process.env.BASE_URL}/login`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({
-              query: `
-                      query Login($input: CreateUserInput) {
-                        login(input: $input) {
-                          id
-                          email
-                          password
-                          name
-                          token
-                        }
-                      }
-                      `,
-              variables: data,
-            }),
+            body: JSON.stringify({email: req?.body?.email,
+              password: req?.body?.password}),
           });
-
+          console.log("response",await response.json());
           if (response.ok) {
             console.log(response, "responseData");
             const responseData = await response.json();
@@ -64,8 +43,8 @@ const handler = NextAuth({
           } else {
             throw new Error("Network response was not ok.");
           }
-        } catch (error) {
-          console.error("Error:", error);
+        } catch (error: any) {
+          console.log("Error:", error.message);
           return null;
         }
       },
@@ -75,36 +54,35 @@ const handler = NextAuth({
     signIn: "/login",
   },
   callbacks: {
-
     async session({ session, user }) {
-        if (session) {
-      
-          try {
-            const response = await fetch("http://localhost:5001/createUserByProvider", {
-              method: "POST", // Change to POST method
-              headers: {
-                "Content-Type": "application/json",
-              },
-              body: JSON.stringify({
-                email: session?.user?.email,
-                name: session?.user?.name,
-                image: session?.user?.image
-              }),
-            });
-      
-            if (!response.ok) {
-              throw new Error("Network response was not ok");
-            }
-      
-            const resData = await response.json(); // Await parsing JSON response
-          } catch (error:any) {
-            console.log("Error saving user data:", error.message);
+      if (session) {
+        try {
+          const response = await fetch("/createUserByProvider", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              email: session?.user?.email,
+              name: session?.user?.name,
+              image: session?.user?.image,
+            }),
+          });
+
+          if (!response.ok) {
+            throw new Error("Network response was not ok");
           }
+
+          const resData = await response.json(); // Await parsing JSON response
+          console.log(resData, "resData");
+        } catch (error: any) {
+          console.log("Error saving user data:", error.message);
         }
-        return session;
-      },
-      
-  async jwt({ token }) {
+      }
+      return session;
+    },
+
+    async jwt({ token }) {
       return token;
     },
   },

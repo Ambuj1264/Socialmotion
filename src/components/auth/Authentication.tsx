@@ -2,15 +2,7 @@
 import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
-import {
-  Tabs,
-  Tab,
-  Input,
-  Link,
-  Button,
-  Card,
-  CardBody,
-} from "@nextui-org/react";
+import { Tabs, Tab, Input, Link, Button, Card, CardBody } from "@nextui-org/react";
 import { errorToast, successToast } from "@/utility/Toast";
 import { useLazyQuery } from "@apollo/client";
 import { loginQuery } from "@/hook/query/login";
@@ -26,8 +18,7 @@ export default function Authentication() {
   const [selected, setSelected] = useState<string | number>("login");
   const router = useRouter();
   const [authType, setAuthType] = useState<any>("login"); // Added authType state
-  const [createUserData, { loading: createUserLoader }] =
-    useMutation(createUser);
+  const [createUserData, { loading: createUserLoader }] = useMutation(createUser);
   const signInHandler = () => {
     signIn("google", { callbackUrl: "/dashboard" });
   };
@@ -50,12 +41,10 @@ export default function Authentication() {
     validationSchema: Yup.object().shape({
       email: Yup.string().email("Invalid email address").required("Required"),
       password: Yup.string().required("Required"),
-      name:
-        authType === "login" ? Yup.string() : Yup.string().required("Required"),
+      name: authType === "login" ? Yup.string() : Yup.string().required("Required"),
     }),
     onSubmit: async (values, actions) => {
       if (authType === "login") {
-      
         console.log("Form submitted with values:", values);
         try {
           const response = await signIn("credentials", {
@@ -67,7 +56,6 @@ export default function Authentication() {
           if (response?.ok) {
             successToast("Login Success");
             router.push("/dashboard");
-
           } else {
             errorToast("login failed");
           }
@@ -119,40 +107,11 @@ export default function Authentication() {
             }}
           >
             <Tab key="login" title="Login">
-              <form
-                className="flex flex-col gap-4"
-                onSubmit={formik.handleSubmit}
-              >
-                <Input
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isRequired
-                  label="Email"
-                  placeholder="Enter your email"
-                  type="text"
-                />
-                {formik.touched.email && formik.errors.email ? (
-                  <span className="text-red-500 px-3 text-xs">
-                    {formik.errors.email}
-                  </span>
-                ) : null}
-                <Input
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isRequired
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                />
-                {formik.touched.password && formik.errors.password ? (
-                  <span className="text-red-500 px-3 text-xs">
-                    {formik.errors.password}
-                  </span>
-                ) : null}
+              <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
+                <Input name="email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} isRequired label="Email" placeholder="Enter your email" type="text" />
+                {formik.touched.email && formik.errors.email ? <span className="text-red-500 px-3 text-xs">{formik.errors.email}</span> : null}
+                <Input name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} isRequired label="Password" placeholder="Enter your password" type="password" />
+                {formik.touched.password && formik.errors.password ? <span className="text-red-500 px-3 text-xs">{formik.errors.password}</span> : null}
                 <p className="text-center text-small">
                   Need to create an account?{" "}
                   <Link size="sm" onPress={() => setSelected("sign-up")}>
@@ -167,55 +126,13 @@ export default function Authentication() {
               </form>
             </Tab>
             <Tab key="sign-up" title="Sign up">
-              <form
-                className="flex flex-col gap-4"
-                onSubmit={formik.handleSubmit}
-              >
-                <Input
-                  name="name"
-                  value={formik.values.name}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isRequired
-                  label="Name"
-                  placeholder="Enter your name"
-                  type="text"
-                />
-                {formik.touched.name && formik.errors.name ? (
-                  <span className="text-red-500 px-3 text-xs">
-                    {formik.errors.name}
-                  </span>
-                ) : null}
-                <Input
-                  name="email"
-                  value={formik.values.email}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isRequired
-                  label="Email"
-                  placeholder="Enter your email"
-                  type="text"
-                />
-                {formik.touched.email && formik.errors.email ? (
-                  <span className="text-red-500 px-3 text-xs">
-                    {formik.errors.email}
-                  </span>
-                ) : null}
-                <Input
-                  name="password"
-                  value={formik.values.password}
-                  onChange={formik.handleChange}
-                  onBlur={formik.handleBlur}
-                  isRequired
-                  label="Password"
-                  placeholder="Enter your password"
-                  type="password"
-                />
-                {formik.touched.password && formik.errors.password ? (
-                  <span className="text-red-500 px-3 text-xs">
-                    {formik.errors.password}
-                  </span>
-                ) : null}
+              <form className="flex flex-col gap-4" onSubmit={formik.handleSubmit}>
+                <Input name="name" value={formik.values.name} onChange={formik.handleChange} onBlur={formik.handleBlur} isRequired label="Name" placeholder="Enter your name" type="text" />
+                {formik.touched.name && formik.errors.name ? <span className="text-red-500 px-3 text-xs">{formik.errors.name}</span> : null}
+                <Input name="email" value={formik.values.email} onChange={formik.handleChange} onBlur={formik.handleBlur} isRequired label="Email" placeholder="Enter your email" type="text" />
+                {formik.touched.email && formik.errors.email ? <span className="text-red-500 px-3 text-xs">{formik.errors.email}</span> : null}
+                <Input name="password" value={formik.values.password} onChange={formik.handleChange} onBlur={formik.handleBlur} isRequired label="Password" placeholder="Enter your password" type="password" />
+                {formik.touched.password && formik.errors.password ? <span className="text-red-500 px-3 text-xs">{formik.errors.password}</span> : null}
                 <p className="text-center text-small">
                   Already have an account?{" "}
                   <Link size="sm" onPress={() => setSelected("login")}>
@@ -232,17 +149,8 @@ export default function Authentication() {
           </Tabs>
         </CardBody>
         <div className="justify-center items-center flex max-w-full w-[340px] mb-5">
-          <Button
-            className=" bg-transparent font-semibold py-2 px-4 border  rounded shadow flex items-center"
-            onClick={signInHandler}
-          >
-            <Image
-              className="h-6 w-6 mr-2"
-              width={100}
-              height={100}
-              src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg"
-              alt="Google Logo"
-            />
+          <Button className=" bg-transparent font-semibold py-2 px-4 border  rounded shadow flex items-center" onClick={signInHandler}>
+            <Image className="h-6 w-6 mr-2" width={100} height={100} src="https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg" alt="Google Logo" />
             <span>Sign in with Google</span>
           </Button>
         </div>
