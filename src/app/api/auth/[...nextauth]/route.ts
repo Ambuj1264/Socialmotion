@@ -24,8 +24,6 @@ const handler = NextAuth({
       name: "my-auth",
       credentials: {},
       async authorize(credentials: Record<never, string> | undefined, req: Pick<any, "headers" | "body" | "query" | "method">): Promise<User | null> {
-        console.log({email: req?.body?.email,
-          password: req?.body?.password}, "req.body");
           try {
             const response = await fetch(`${process.env.BASE_URL}/api/login`, {
               method: "POST",
@@ -40,7 +38,6 @@ const handler = NextAuth({
           
             if (response.ok) {
               const responseData = await response.json();
-              console.log("responseData", responseData); // Log responseData for debugging
               return responseData?.data;
             } else {
               const errorData = await response.json();

@@ -19,7 +19,6 @@ export default function Authentication() {
     signIn("google", { callbackUrl: "/dashboard" });
   };
 
-  console.log(authType, "authType");
   // Formik configuration
   const formik = useFormik({
     initialValues: {

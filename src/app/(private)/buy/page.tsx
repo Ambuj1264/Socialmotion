@@ -18,7 +18,6 @@ const BuyNow = () => {
         userId:"65ec8f661ec78b2e8bac69b5",
       })
 
-      console.log(result.data,"data--------------------------------------")
       if(result.data){
         successToast("success");
         window.location.href = result?.data?.data;

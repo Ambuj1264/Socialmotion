@@ -8,7 +8,6 @@ import Loader from "@/components/Loader/Loader";
 
 const DemoVideoDetails = () => {
   const { id } = useParams();
-  console.log(id, "id");
   const [data, setData] = useState<any>({});
   const [loading, setLoading] = useState<boolean>(true); // Add loading state
   useEffect(() => {

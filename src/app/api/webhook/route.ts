@@ -21,17 +21,12 @@ export default async function POST(req: NextRequest) {
         break;
       case "checkout.session.completed":
         const session: Session = event.data.object as Session;
-        // console.log(session.amount_total / 100, "session");
         stripe.customers.retrieve(session.customer).then(async (customerResponse) => {
           const customer = customerResponse as Stripe.Customer;
-          // console.log(customer, "customer");
-          // console.log(customer?.balance, "https://line_item_group.total/");
-
           const customerId = customer.metadata.userId;
           const billingDate = session.created;
           const formattedBillingDate = new Date(billingDate * 1000).toISOString();
           const inputDate = new Date(formattedBillingDate);
-          // console.log(customer, customerId, "customer ");
           const findUser = await Subscribes.findOne({
             userId: customerId,
           });
