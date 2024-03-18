@@ -1,18 +1,17 @@
 "use client";
 import React, { useState } from "react";
-import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
+import { Button, Card, CardHeader } from "@nextui-org/react";
 import { BuySingleproduct, priceSocialMenu } from "@/utility/constant";
 import { useParams } from "next/navigation";
-import { useMutation } from "@apollo/client";
-import { paymentCheckout } from "@/hook/mutations/payment";
 import { errorToast, successToast } from "@/utility/Toast";
 import axios from "axios";
 import Loader from "@/components/Loader/Loader";
+import { getLocalStorageData } from "@/utility/storage";
 const BuyComponent = () => {
   const { id }: any = useParams();
   const data = priceSocialMenu.filter((value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1));
   const [loading, setLoading] = useState<boolean>(false);
-  const userData:any = localStorage.getItem("user");
+  const userData:any = getLocalStorageData("user");
   const userID= userData?._id;
   //handler
   const handler = async () => {

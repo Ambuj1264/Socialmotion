@@ -56,7 +56,7 @@ export default function FullNavbar() {
             Home
           </Link>
         </NavbarItem>
-        <NavbarItem isActive>
+        <NavbarItem >
           <Link href="/dashboard" className="hover:text-primary">
             Your Automation
           </Link>

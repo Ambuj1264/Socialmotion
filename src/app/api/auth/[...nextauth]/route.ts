@@ -80,13 +80,11 @@ const handler = NextAuth({
 
           const resData = await response.json(); // Await parsing JSON response
           // Merge resData with session.user
-          console.log(resData,"resData")
           session.user = { ...session.user, ...resData.data };
         } catch (error: any) {
           console.log("Error saving user data:", error.message);
         }
       }
-      console.log(session, "session-------------");
       return session;
     },
 

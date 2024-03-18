@@ -43,6 +43,7 @@ export default function Authentication() {
             redirect: false,
           });
           if (response?.ok) {
+            // localStorage.setItem("user",response.data)
             successToast("Login Success");
             router.push("/dashboard");
           } else {
@@ -54,7 +55,6 @@ export default function Authentication() {
           setLoading(false);
         }
       } else {
-        console.log("Form submitted with values:", values);
         try {
           const result = await axios.post("/api/user", {
             email: values.email,

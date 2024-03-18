@@ -2,15 +2,15 @@
 import Loader from "@/components/Loader/Loader";
 import { errorToast, successToast } from "@/utility/Toast";
 import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
+import { getLocalStorageData } from "@/utility/storage";
 import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import React, { useState } from "react";
 
 const BuyNow = () => {
   const [loading, setLoading] = useState<boolean>(true);
-  const userData:any = localStorage.getItem("user");
-  const userID= userData?._id
-
+  const userData:any = getLocalStorageData("user");
+  const userID= userData?._id;
 
   const handler = async (data: string) => {
     try {
