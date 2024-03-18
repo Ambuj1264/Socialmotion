@@ -59,32 +59,39 @@ const handler = NextAuth({
     async session({ session, user }) {
       if (session) {
         try {
-          const response = await fetch(`${process.env.BASE_URL}/api/createUserByProvider`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              email: session?.user?.email,
-              name: session?.user?.name,
-              image: session?.user?.image,
-            }),
-          });
+          const response = await fetch(
+            `${process.env.BASE_URL}/api/createUserByProvider`,
+            {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: session?.user?.email,
+                name: session?.user?.name,
+                image: session?.user?.image,
+              }),
+            }
+          );
 
           if (!response.ok) {
             throw new Error("Network response was not ok");
           }
 
           const resData = await response.json(); // Await parsing JSON response
-          return resData.data;
+          // Merge resData with session.user
+          console.log(resData,"resData")
+          session.user = { ...session.user, ...resData.data };
         } catch (error: any) {
           console.log("Error saving user data:", error.message);
         }
       }
+      console.log(session, "session-------------");
       return session;
     },
 
     async jwt({ token }) {
+      
       return token;
     },
   },

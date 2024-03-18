@@ -3,7 +3,6 @@ import { generateHash } from "../../../utility/commonMethod";
 import Users from "../(models)/user";
 import connectDB from "../(connection)";
 import { UserRequestBody } from "@/types/interface";
-import bcrypt from "bcrypt";
 const jwt = require("jsonwebtoken");
 interface UserDuplicationResult {
   emailIsDuplicated: boolean;
@@ -37,11 +36,13 @@ export async function POST(req: NextRequest) {
       password: hashedPassword,
       name,
     });
+    const token = jwt.sign({ newUser }, process.env.JWT_SECRET!, { expiresIn: "7d" });
 
     return NextResponse.json({
       success: true,
       message: "User created successfully",
       data: newUser,
+      token: token,
     });
   } catch (error: any) {
     return NextResponse.json({
