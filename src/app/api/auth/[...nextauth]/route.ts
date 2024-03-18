@@ -62,7 +62,7 @@ const handler = NextAuth({
     async session({ session, user }) {
       if (session) {
         try {
-          const response = await fetch("/createUserByProvider", {
+          const response = await fetch(`${process.env.BASE_URL}/api/createUserByProvider`, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
@@ -79,7 +79,7 @@ const handler = NextAuth({
           }
 
           const resData = await response.json(); // Await parsing JSON response
-          console.log(resData, "resData");
+          return resData.data;
         } catch (error: any) {
           console.log("Error saving user data:", error.message);
         }

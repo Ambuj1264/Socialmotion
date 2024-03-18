@@ -4,26 +4,22 @@ import { useFormik } from "formik";
 import * as Yup from "yup";
 import { Tabs, Tab, Input, Link, Button, Card, CardBody } from "@nextui-org/react";
 import { errorToast, successToast } from "@/utility/Toast";
-import { useLazyQuery } from "@apollo/client";
-import { loginQuery } from "@/hook/query/login";
 import { signIn } from "next-auth/react";
-import SpinnerLoader from "../Loader/SpinnerLoader";
-import { useMutation } from "@apollo/client";
-import { createUser } from "@/hook/mutations/createUser";
 import { useRouter } from "next/navigation";
-import { setCookie } from "@/hook/cookies";
 import Image from "next/image";
+import axios from "axios";
+import Loader from "../Loader/Loader";
 
 export default function Authentication() {
+  const [loading, setLoading] = useState<boolean>(false);
   const [selected, setSelected] = useState<string | number>("login");
   const router = useRouter();
   const [authType, setAuthType] = useState<any>("login"); // Added authType state
-  const [createUserData, { loading: createUserLoader }] = useMutation(createUser);
   const signInHandler = () => {
     signIn("google", { callbackUrl: "/dashboard" });
   };
 
-  console.log(authType,"authType")
+  console.log(authType, "authType");
   // Formik configuration
   const formik = useFormik({
     initialValues: {
@@ -38,8 +34,8 @@ export default function Authentication() {
       name: authType === "login" ? Yup.string() : Yup.string().required("Required"),
     }),
     onSubmit: async (values, actions) => {
+      setLoading(true);
       if (authType === "login") {
-        console.log("Form submitted with values:", values);
         try {
           const response = await signIn("credentials", {
             email: values.email,
@@ -55,20 +51,19 @@ export default function Authentication() {
           }
         } catch (error) {
           errorToast("login failed");
+        } finally {
+          setLoading(false);
         }
       } else {
         console.log("Form submitted with values:", values);
         try {
-          const result = await createUserData({
-            variables: {
-              input: {
-                email: values.email,
-                password: values.password,
-                name: values.name,
-              },
-            },
+          const result = await axios.post("/api/user", {
+            email: values.email,
+            password: values.password,
+            name: values.name,
           });
-          if (result?.data) {
+
+          if (result?.data?.data) {
             successToast("Registration successful");
             router.push("/dashboard");
             actions.resetForm();
@@ -77,13 +72,15 @@ export default function Authentication() {
           }
         } catch (error: any) {
           errorToast(error.message);
+        } finally {
+          setLoading(false);
         }
       }
     },
   });
 
-  if (createUserLoader) {
-    return <SpinnerLoader />;
+  if (loading) {
+    return <Loader />;
   }
 
   return (

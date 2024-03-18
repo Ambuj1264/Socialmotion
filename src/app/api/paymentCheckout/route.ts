@@ -38,7 +38,7 @@ export async function POST(req: NextRequest) {
     }
     return NextResponse.json({
       success: true,
-      message: "Payment successful",
+      message: "Payment checkout",
       data: session.url,
     });
   } catch (error: any) {

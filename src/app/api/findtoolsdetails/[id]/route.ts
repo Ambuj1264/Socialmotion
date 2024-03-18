@@ -2,11 +2,11 @@ import { NextRequest, NextResponse } from "next/server";
 import DemoToolDetails from "../../(models)/demoToolDetails";
 import connectDB from "../../(connection)";
 
-export async function GET(req: NextRequest, { params }: { params: { toolUniqueName: string } }) {
+export async function GET(req: NextRequest, { params }: { params: { id: string } }) {
   try {
     await connectDB();
     const findCreateDemo = await DemoToolDetails.findOne({
-      toolUniqueName: params?.toolUniqueName,
+      toolUniqueName: params?.id,
       isDeleted: false,
     });
     return NextResponse.json({
