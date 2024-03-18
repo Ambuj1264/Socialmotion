@@ -3,6 +3,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Subscribes from "../(models)/subscribe";
 import Users from "../(models)/user";
 import { Session } from "@/types/interface";
+import { headers } from "next/headers";
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
   apiVersion: "2023-10-16",
@@ -11,7 +12,8 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 const endpointSecret = process.env.STRIPE_ENDPOINTSECRET!;
 export async function POST(req: NextRequest) {
   const rawBody = await req.json();
-  const sig = req.headers.get("stripe-signature");
+  const headerList= headers();
+  const sig =  headerList.get("stripe-signature");
   try {
     const event = await stripe.webhooks.constructEvent(rawBody, sig!, endpointSecret);
     switch (event.type) {
@@ -92,7 +94,6 @@ export async function POST(req: NextRequest) {
       data: event,
     });
   } catch (err: any) {
-    console.log("Webhook Error:", err.message);
     return NextResponse.json({
       error: err.message,
       success: false,
