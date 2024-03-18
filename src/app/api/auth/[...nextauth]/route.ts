@@ -26,27 +26,32 @@ const handler = NextAuth({
       async authorize(credentials: Record<never, string> | undefined, req: Pick<any, "headers" | "body" | "query" | "method">): Promise<User | null> {
         console.log({email: req?.body?.email,
           password: req?.body?.password}, "req.body");
-        try {
-          const response = await fetch(`${process.env.BASE_URL}/login`, {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({email: req?.body?.email,
-              password: req?.body?.password}),
-          });
-          console.log("response",await response.json());
-          if (response.ok) {
-            console.log(response, "responseData");
-            const responseData = await response.json();
-            return responseData.data.login;
-          } else {
-            throw new Error("Network response was not ok.");
+          try {
+            const response = await fetch(`${process.env.BASE_URL}/api/login`, {
+              method: "POST",
+              headers: {
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                email: req?.body?.email,
+                password: req?.body?.password
+              }),
+            });
+          
+            if (response.ok) {
+              const responseData = await response.json();
+              console.log("responseData", responseData); // Log responseData for debugging
+              return responseData?.data;
+            } else {
+              const errorData = await response.json();
+              console.error("Server error:", errorData); // Log error response for debugging
+              throw new Error("Server error: " + errorData.message);
+            }
+          } catch (error:any) {
+            console.error("Error:", error.message);
+            return null;
           }
-        } catch (error: any) {
-          console.log("Error:", error.message);
-          return null;
-        }
+          
       },
     }),
   ],

@@ -33,7 +33,6 @@ export default function LoggedNavBar({ data }: any) {
     setPathState(sidebarPathNames.includes(pathname));
   }, [state?.sidebar?.payload]);
 
-  console.log(state?.sidebar?.payload, "state");
 
   const logoutHandler = (e: any) => {
     signOut();

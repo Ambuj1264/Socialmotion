@@ -23,13 +23,7 @@ export default function Authentication() {
     signIn("google", { callbackUrl: "/dashboard" });
   };
 
-  const [login, { loading }] = useLazyQuery(loginQuery, {
-    onCompleted: (data) => {
-      successToast("login success");
-      router.push("/dashboard");
-    },
-  });
-
+  console.log(authType,"authType")
   // Formik configuration
   const formik = useFormik({
     initialValues: {
@@ -88,7 +82,7 @@ export default function Authentication() {
     },
   });
 
-  if (loading || createUserLoader) {
+  if (createUserLoader) {
     return <SpinnerLoader />;
   }
 
