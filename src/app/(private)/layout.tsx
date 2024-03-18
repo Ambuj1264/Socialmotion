@@ -8,7 +8,6 @@ import { getServerSession } from "next-auth";
 const Layout: React.FC<{ children: ReactNode }> = async({ children }) => {
   const session = await getServerSession();
   const userData= session?.user
-
   return (
     <>
       <Suspense fallback={<Spinner />}>

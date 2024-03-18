@@ -1,39 +1,40 @@
 "use client";
+import Loader from "@/components/Loader/Loader";
 import { paymentCheckout } from "@/hook/mutations/payment";
 import { errorToast, successToast } from "@/utility/Toast";
 import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
 import { useMutation } from "@apollo/client";
 import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
-import React from "react";
+import axios from "axios";
+import React, { useState } from "react";
 
 const BuyNow = () => {
-  const [paymentcheckout, loading] = useMutation(
-    paymentCheckout
-    //      {
-    //   context: {
-    //     headers: {
-    //       Authorization: `Bearer ${authKey}`,
-    //     },
-    //   },
-    // }
-  );
+  const [loading, setLoading] = useState<boolean>(true);
+
   const handler = async (data: string) => {
     try {
       if (data === "Facebook") {
-        const result = await paymentcheckout({
-          variables: {
-            userId: "65ec8f661ec78b2e8bac69b5",
-          },
-        });
-        if (result.data) {
-          successToast("success");
-          window.location.href = result?.data?.paymentCheckout;
-        }
+      const result =await axios.post('/api/paymentCheckout',{
+        userId:"65ec8f661ec78b2e8bac69b5",
+      })
+
+      if(result.data){
+        successToast("success");
+        window.location.href = result?.data?.data;
       }
-    } catch (error: any) {
+      else{
+        errorToast("error");
+      }
+    }} catch (error: any) {
       errorToast(error.message);
+    }  finally {
+      setLoading(false); 
     }
   };
+
+  if(loading){
+     <Loader />;
+  }
 
   return (
     <>

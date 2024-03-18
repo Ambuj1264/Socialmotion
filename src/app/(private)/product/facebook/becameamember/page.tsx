@@ -18,7 +18,6 @@ function BecameMember() {
   //   return <Spinner />;
   // }
   const state = useSelector((state: any) => state?.sidebar?.payload);
-  console.log(state, "facebook");
 
   return (
     <>

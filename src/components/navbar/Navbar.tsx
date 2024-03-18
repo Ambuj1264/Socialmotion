@@ -52,17 +52,17 @@ export default function FullNavbar() {
       </NavbarBrand>
       <NavbarContent className="hidden sm:flex gap-4" justify="center">
         <NavbarItem>
-          <Link color="foreground" href="/">
+          <Link color="foreground" href="/" className="hover:text-primary">
             Home
           </Link>
         </NavbarItem>
         <NavbarItem isActive>
-          <Link href="/dashboard" aria-current="page">
+          <Link href="/dashboard" className="hover:text-primary">
             Your Automation
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link color="foreground" href="/contact">
+          <Link color="foreground" href="/contact" className="hover:text-primary" >
             Contact Us
           </Link>
         </NavbarItem>
