@@ -1,21 +1,22 @@
 "use client";
 import Loader from "@/components/Loader/Loader";
-import { paymentCheckout } from "@/hook/mutations/payment";
 import { errorToast, successToast } from "@/utility/Toast";
 import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
-import { useMutation } from "@apollo/client";
 import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import React, { useState } from "react";
 
 const BuyNow = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const userData:any = localStorage.getItem("user");
+  const userID= userData?._id
+
 
   const handler = async (data: string) => {
     try {
       if (data === "Facebook") {
       const result =await axios.post('/api/paymentCheckout',{
-        userId:"65ec8f661ec78b2e8bac69b5",
+        userId:userID,
       })
 
       if(result.data){

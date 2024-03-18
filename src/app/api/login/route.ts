@@ -25,12 +25,12 @@ export async function POST(req: NextRequest) {
           });
         }
         const token = jwt.sign({ login }, process.env.JWT_SECRET!, { expiresIn: "7d" });
-        login.token = token;
 
         return NextResponse.json({
           success: true,
           message: "Login successful",
           data: login,
+          token: token,
         });
       }
       if (!login || !isPasswordMatch) {

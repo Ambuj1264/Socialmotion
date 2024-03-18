@@ -2,7 +2,7 @@ import { NextRequest, NextResponse } from "next/server";
 import Users from "../(models)/user";
 import connectDB from "../(connection)";
 import { UserRequestBody } from "@/types/interface";
-
+const jwt = require("jsonwebtoken");
 export async function POST(req: NextRequest) {
   try {
     await connectDB();
@@ -19,12 +19,13 @@ export async function POST(req: NextRequest) {
       email: lowercaseLoginName,
       isDeleted: false,
     });
-
+    const token = jwt.sign({ findUser }, process.env.JWT_SECRET!, { expiresIn: "7d" });
     if (findUser) {
       return NextResponse.json({
         success: false,
         message: "User finded",
         data: findUser,
+        token: token
       });
     } else {
       const createUser = await Users.create({
@@ -40,10 +41,13 @@ export async function POST(req: NextRequest) {
           data: [],
         });
       } else {
+        const token = jwt.sign({ createUser }, process.env.JWT_SECRET!, { expiresIn: "7d" });
+        createUser.token = token;
         return NextResponse.json({
           success: true,
           message: "User created successfully",
           data: createUser,
+          token:token
         });
       }
     }
