@@ -12,12 +12,13 @@ const BuyComponent = () => {
   const { id }: any = useParams();
   const data = priceSocialMenu.filter((value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1));
   const [loading, setLoading] = useState<boolean>(false);
-
+  const userData:any = localStorage.getItem("user");
+  const userID= userData?._id
   const handler = async () => {
     setLoading(true)
     try {
       const result = await axios.post("/api/paymentCheckout", {
-        userId: "65ec8f661ec78b2e8bac69b5",
+        userId: userID,
       });
       if (result.data) {
         successToast("success");
