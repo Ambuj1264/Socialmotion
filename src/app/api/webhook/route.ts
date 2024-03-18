@@ -76,6 +76,7 @@ export default async function POST(req: NextRequest) {
             }
           }
         });
+        
 
         // Then define and call a function to handle the event checkout.session.completed
         break;
