@@ -9,7 +9,7 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 const endpointSecret = process.env.STRIPE_ENDPOINTSECRET!;
-export default async function POST(req: NextRequest) {
+export async function POST(req: NextRequest) {
   const rawBody = await req.json();
   const sig = req.headers.get("stripe-signature");
   try {
@@ -76,7 +76,7 @@ export default async function POST(req: NextRequest) {
             }
           }
         });
-        
+
 
         // Then define and call a function to handle the event checkout.session.completed
         break;

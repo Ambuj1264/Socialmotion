@@ -52,8 +52,7 @@ export async function POST(req: NextRequest) {
   }
 }
 
-
-export const checkEmailDuplication = async (email: string): Promise<UserDuplicationResult> => {
+const checkEmailDuplication = async (email: string): Promise<UserDuplicationResult> => {
   try {
     const existingUser = await Users.findOne({ email });
     if (existingUser) {

@@ -22,8 +22,6 @@ import { sidebar } from "@/redux/Action";
 export default function LoggedNavBar({ data }: any) {
   const [pathState, setPathState] = useState<boolean>(false);
   const state :any= useSelector((state) => state);
-
-
   const pathname = usePathname();
   const dispatch = useDispatch();
   const sidebarHandler=()=>{
@@ -31,7 +29,7 @@ export default function LoggedNavBar({ data }: any) {
   }
   useEffect(() => {
     setPathState(sidebarPathNames.includes(pathname));
-  }, [state?.sidebar?.payload]);
+  }, [state?.sidebar?.payload,pathname]);
 
 
   const logoutHandler = (e: any) => {
