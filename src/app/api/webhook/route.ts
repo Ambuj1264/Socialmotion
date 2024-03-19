@@ -14,7 +14,6 @@ export async function POST(req: NextRequest) {
   const rawBody = await req.text();
 
   const sig:any =  headers().get("Stripe-Signature") as string;
-    console.log(sig, "777777777777777777777777777777777")
   try {
 
     const event = await stripe.webhooks.constructEvent(rawBody, sig, endpointSecret);
@@ -51,6 +50,9 @@ export async function POST(req: NextRequest) {
                 {
                   subscribed: true,
                   approved: true,
+                },
+                {
+                  new:true
                 }
               );
             }
@@ -75,6 +77,9 @@ export async function POST(req: NextRequest) {
                 {
                   subscribed: true,
                   approved: true,
+                },
+                {
+                  new:true
                 }
               );
             }
