@@ -13,7 +13,7 @@ const endpointSecret = process.env.STRIPE_ENDPOINTSECRET!;
 export async function POST(req: NextRequest) {
   const rawBody = await req.json();
   const sig =  headers().get("Stripe-Signature") as string;
-  const webhookSecret = process.env.STIPE_WEBHOOK_SECERET!;
+    console.log(sig, "777777777777777777777777777777777")
   try {
     if(!sig ||!endpointSecret) return;
 
