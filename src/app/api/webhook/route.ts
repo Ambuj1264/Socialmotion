@@ -16,7 +16,6 @@ export async function POST(req: NextRequest) {
     console.log(sig, "777777777777777777777777777777777"
     )
   try {
-    if(!sig ||!endpointSecret) return;
 
     const event = await stripe.webhooks.constructEvent(rawBody, sig!, endpointSecret);
     switch (event.type) {
