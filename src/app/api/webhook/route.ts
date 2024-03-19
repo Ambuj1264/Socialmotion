@@ -10,10 +10,13 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!, {
 });
 
 const endpointSecret = process.env.STRIPE_ENDPOINTSECRET!;
-export async function POST(req: any) {
+export async function POST(req: NextRequest) {
   const rawBody = await req.json();
-  const sig =  req?.headers["stripe-signature"];
+  const sig =  headers().get("Stripe-Signature") as string;
+  const webhookSecret = process.env.STIPE_WEBHOOK_SECERET!;
   try {
+    if(!sig ||!endpointSecret) return;
+
     const event = await stripe.webhooks.constructEvent(rawBody, sig!, endpointSecret);
     switch (event.type) {
       case "checkout.session.async_payment_failed":
