@@ -54,13 +54,16 @@ export async function POST(req: NextRequest) {
 
 async function handleCheckoutSessionCompleted(session: Session) {
   try {
-    const customer :any= await stripe.customers.retrieve(session.customer);
+    const customer: any = await stripe.customers.retrieve(session.customer);
     const customerId = customer?.metadata?.userId;
     const billingDate = session.created;
     const formattedBillingDate = new Date(billingDate * 1000).toISOString();
     const inputDate = new Date(formattedBillingDate);
 
-    const findUser = await Subscribes.findOne({ userId: customerId });
+    const findUser = await Subscribes.findOne({
+      userId: customerId,
+      isDeleted: false,
+    });
     if (!findUser) {
       const updateUserPayment = await Subscribes.create({
         userId: customerId,
@@ -86,6 +89,9 @@ async function handleCheckoutSessionCompleted(session: Session) {
           paid: true,
           approved: true,
           amount: session.amount_total / 100,
+        },
+        {
+          new: true,
         }
       );
 
@@ -103,13 +109,16 @@ async function handleCheckoutSessionCompleted(session: Session) {
 
 async function handlePaymentIntentSucceeded(session: Session) {
   try {
-    const customer :any= await stripe.customers.retrieve(session.customer);
+    const customer: any = await stripe.customers.retrieve(session.customer);
     const customerId = customer?.metadata.userId;
     const billingDate = session.created;
     const formattedBillingDate = new Date(billingDate * 1000).toISOString();
     const inputDate = new Date(formattedBillingDate);
 
-    const findUser = await Subscribes.findOne({ userId: customerId });
+    const findUser = await Subscribes.findOne({
+      userId: customerId,
+      isDeleted: false,
+    });
     if (!findUser) {
       const updateUserPayment = await Subscribes.create({
         userId: customerId,
@@ -119,15 +128,13 @@ async function handlePaymentIntentSucceeded(session: Session) {
         amount: session.amount_total / 100,
       });
       await updateUserPayment.save();
-      if (updateUserPayment) {
-        await Users.findOneAndUpdate(
-          { _id: customerId },
-          { subscribed: true, approved: true },
-          { new: true }
-        );
-      }
+      await Users.findOneAndUpdate(
+        { _id: customerId },
+        { subscribed: true, approved: true },
+        { new: true }
+      );
     } else {
-      const updatedSub = await Subscribes.findOneAndUpdate(
+      await Subscribes.findOneAndUpdate(
         { userId: customerId },
         {
           userId: customerId,
@@ -137,8 +144,7 @@ async function handlePaymentIntentSucceeded(session: Session) {
           amount: session.amount_total / 100,
         }
       );
-
-      const resultForUpdate = await Users.findOneAndUpdate(
+      await Users.findOneAndUpdate(
         { _id: customerId },
         { subscribed: true, approved: true },
         { new: true }
