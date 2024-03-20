@@ -10,7 +10,7 @@ export async function POST(req: NextRequest) {
     await connectDB();
     const requestBody = await req?.json();
     const { email, password }: UserRequestBody = requestBody;
-    const lowercaseLoginName = email;
+    const lowercaseLoginName = email.toLowerCase().trim();
 
     let isPasswordMatch;
     if (email && password) {
