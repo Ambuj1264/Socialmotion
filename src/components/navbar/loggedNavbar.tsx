@@ -17,9 +17,11 @@ import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
 import { signOut } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
-import { usePathname } from "next/navigation";
+import { usePathname, useRouter } from "next/navigation";
 import { sidebar } from "@/redux/Action";
 export default function LoggedNavBar({ data }: any) {
+  const router = useRouter();
+
   const [pathState, setPathState] = useState<boolean>(false);
   const state :any= useSelector((state) => state);
   const pathname = usePathname();
@@ -32,8 +34,10 @@ export default function LoggedNavBar({ data }: any) {
   }, [state?.sidebar?.payload,pathname]);
 
 
-  const logoutHandler = (e: any) => {
+  const logoutHandler = async(e: any) => {
     signOut();
+    localStorage.removeItem("user");
+    router.push("/")
   };
   const menuItems = [
     "Profile",
@@ -144,3 +148,5 @@ export default function LoggedNavBar({ data }: any) {
     </>
   );
 }
+
+

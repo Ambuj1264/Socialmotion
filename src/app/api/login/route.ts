@@ -14,7 +14,7 @@ export async function POST(req: NextRequest) {
 
     let isPasswordMatch;
     if (email && password) {
-      const login: any = await Users.findOne({ email: lowercaseLoginName });
+      const login: any = await Users.findOne({ email: lowercaseLoginName, isDeleted:false });
       if (login) {
         isPasswordMatch = await bcrypt.compare(password, login.password);
         if (!isPasswordMatch) {

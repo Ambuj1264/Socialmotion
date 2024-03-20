@@ -35,9 +35,9 @@ const handler = NextAuth({
                 password: req?.body?.password
               }),
             });
-          
-            if (response.ok) {
-              const responseData = await response.json();
+            const data = await response.json();
+            if (data.success) {
+              const responseData = data;
               return responseData?.data;
             } else {
               const errorData = await response.json();
