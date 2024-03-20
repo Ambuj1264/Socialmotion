@@ -15,14 +15,12 @@ export async function POST(req: NextRequest) {
   const rawBody = await req.text();
 
   const sig: any = headers().get("Stripe-Signature") as string;
-  console.log(sig, "sig");
   try {
     const event = await stripe.webhooks.constructEvent(
       rawBody,
       sig,
       endpointSecret
     );
-    console.log(event, "event")
     switch (event.type) {
       case "checkout.session.async_payment_failed":
         break;

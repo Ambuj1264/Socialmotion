@@ -42,7 +42,6 @@ export default function Authentication() {
             callbackUrl: window.location.origin,
             redirect: false,
           });
-          alert(response)
           if (response?.ok) {
             // localStorage.setItem("user",response.data)
             successToast("Login Success");
