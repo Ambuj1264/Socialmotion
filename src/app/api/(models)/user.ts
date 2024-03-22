@@ -26,6 +26,15 @@ const contactSchema = new mongoose.Schema(
     image: {
       type: String,
     },
+    subscribed: {
+      type: Boolean,
+      default:false
+    },
+
+    approved: {
+      type: Boolean,
+      default:false
+    },
   },
   {
     timestamps: true,

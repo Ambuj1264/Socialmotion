@@ -72,19 +72,19 @@ async function handleCheckoutSessionCompleted(session: Session) {
         approved: true,
         amount: session.amount_total / 100,
       });
-      await updateUserPayment.save();
-      if (updateUserPayment) {
-        await Users.findOneAndUpdate(
-          { _id: customerId },
-          { subscribed: true, approved: true },
-          { new: true }
-        );
-      }
+
+      const Userdata = await Users.findOneAndUpdate(
+        { _id: customerId },
+        {
+          $set: { subscribed: true, approved: true },
+        },
+
+        { new: true }
+      );
     } else {
-      const updatedSub = await Subscribes.findOneAndUpdate(
+      const updateSub = await Subscribes.findOneAndUpdate(
         { userId: customerId },
         {
-          userId: customerId,
           billingDate: inputDate,
           paid: true,
           approved: true,
@@ -97,12 +97,14 @@ async function handleCheckoutSessionCompleted(session: Session) {
 
       const resultForUpdate = await Users.findOneAndUpdate(
         { _id: customerId },
-        { subscribed: true, approved: true },
+        {
+          $set: { subscribed: true, approved: true },
+        },
         { new: true }
       );
     }
-  } catch (error) {
-    console.error("Error handling checkout session completed:", error);
+  } catch (error:any) {
+    console.log("Error handling checkout session completed:", error.message);
     throw error;
   }
 }
@@ -127,31 +129,32 @@ async function handlePaymentIntentSucceeded(session: Session) {
         approved: true,
         amount: session.amount_total / 100,
       });
-      await updateUserPayment.save();
-      await Users.findOneAndUpdate(
+      const updateUser = await Users.findOneAndUpdate(
         { _id: customerId },
         { subscribed: true, approved: true },
         { new: true }
       );
     } else {
-      await Subscribes.findOneAndUpdate(
+      const updateSubs = await Subscribes.findOneAndUpdate(
         { userId: customerId },
         {
-          userId: customerId,
-          billingDate: inputDate,
-          paid: true,
-          approved: true,
-          amount: session.amount_total / 100,
+          $set: {
+            userId: customerId,
+            billingDate: inputDate,
+            paid: true,
+            approved: true,
+            amount: session.amount_total / 100,
+          },
         }
       );
-      await Users.findOneAndUpdate(
+      const updateUSer = await Users.findOneAndUpdate(
         { _id: customerId },
-        { subscribed: true, approved: true },
+        { $set: { subscribed: true, approved: true } },
         { new: true }
       );
     }
   } catch (error) {
-    console.error("Error handling payment intent succeeded:", error);
+    console.log("Error handling payment intent succeeded:", error);
     throw error;
   }
 }
