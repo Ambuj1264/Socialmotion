@@ -35,7 +35,7 @@ export default function LoggedNavBar({ data }: any) {
 
 
   const logoutHandler = async(e: any) => {
-    signOut();
+  await  signOut();
     localStorage.removeItem("user");
     router.push("/")
   };
