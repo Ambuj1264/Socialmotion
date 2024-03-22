@@ -50,7 +50,7 @@ const BuyComponent = () => {
               <Card className="py-4" style={{ width: "fit-content" }}>
                 <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
                   <h4 className="font-bold text-large">{data[0]?.name}</h4>
-                  <small className="text-default-500 uppercase font-bold">{data[0]?.details}</small>
+                  <span className="text-default-500 uppercase font-bold">{data[0]?.details}</span>
                   <small className="text-default-500">{data[0]?.toolNo}</small>
                   <h4 className="font-bold  text-green-600">{data[0]?.price ? `Price :  $ ${data[0]?.price} ` : ""}</h4>
                 </CardHeader>

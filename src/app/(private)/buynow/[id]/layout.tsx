@@ -8,7 +8,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
     if(status === "loading"){
         <Loader />
     }else{
-        localStorage.setItem("user", JSON.stringify(session?.user))
+        localStorage.setItem("user", JSON.stringify(session?.user));
     }
   return (
     <>
