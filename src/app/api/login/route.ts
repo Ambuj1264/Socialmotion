@@ -1,3 +1,4 @@
+import { corsObj } from './../../../utility/cors';
 import { NextRequest, NextResponse } from "next/server";
 import connectDB from "../(connection)";
 import { UserRequestBody } from "@/types/interface";
@@ -22,7 +23,7 @@ export async function POST(req: NextRequest) {
             success: false,
             message: "Email and password do not match",
             data: [],
-          });
+          },corsObj);
         }
         const token = jwt.sign({ login }, process.env.JWT_SECRET!, { expiresIn: "7d" });
 
@@ -31,14 +32,14 @@ export async function POST(req: NextRequest) {
           message: "Login successful",
           data: login,
           token: token,
-        });
+        },corsObj);
       }
       if (!login || !isPasswordMatch) {
         return NextResponse.json({
           success: false,
           message: "Email and password do not match",
           data: [],
-        });
+        },corsObj);
       }
     }
   } catch (error: any) {
@@ -46,6 +47,6 @@ export async function POST(req: NextRequest) {
       success: false,
       message: error.message || "An error occurred while processing your request.",
       data: [],
-    });
+    },corsObj);
   }
 }
