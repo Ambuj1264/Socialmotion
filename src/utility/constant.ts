@@ -13,7 +13,7 @@ export const SocialMenu: SocialMenuType[] = [
     name: "Facebook",
     addr: "/product/facebook/manageextension",
     imgAddr:
-      "image/facebook-logo-3d-social-media-icon-isolated/m024t0256_b_facebook_17oct22.jpg",
+      "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
   },
   {
     details: "Automate Your Instagram Account",
@@ -21,7 +21,7 @@ export const SocialMenu: SocialMenuType[] = [
     name: "Instagram",
     addr: "#",
     imgAddr:
-      "image/instagram-icon-3d-rendering-isolated/m024t0252_a_social_media_icon_12oct22.jpg",
+      "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182266/ggv9eqifbwyhaqjzv4gv.jpg",
   },
   {
     details: "Automate Your Linkedin Account",
@@ -29,14 +29,14 @@ export const SocialMenu: SocialMenuType[] = [
     name: "Linkedin",
     addr: "#",
     imgAddr:
-      "image/social-media-linkedin-3d-icon-render-with-transparent-background-linkedin-3d-icon-illustration_740533-279-transformed.jpeg",
+      "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182336/kvsqenyclubxq3qndbb0.jpg",
   },
   {
     details: "Automate Your Official Website",
     toolNo: "Order tool",
     name: "Your Website",
     addr: "/contact",
-    imgAddr: "image/hero-card-complete.jpeg",
+    imgAddr: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711181875/j3xe93qbonoyuqk6ubmf.jpg",
   },
 ];
 export const priceSocialMenu: SocialMenuType[] = [
@@ -46,20 +46,6 @@ export const priceSocialMenu: SocialMenuType[] = [
     name: "Facebook",
     addr: "/product/facebook/manageextension",
     price: "40",
-  },
-  {
-    details: "Automate Your Instagram Account",
-    toolNo: "Coming soon..",
-    name: "Instagram",
-    addr: "#",
-    price: "",
-  },
-  {
-    details: "Automate Your Linkedin Account",
-    toolNo: "Coming soon..",
-    name: "Linkedin",
-    addr: "#",
-    price: "",
   },
   {
     details: "Automate Your Official Website",
@@ -84,7 +70,7 @@ export const FacebookData: FacebookDataInterface[] = [
   {
     key: "becameamember",
     link: "/product/facebook/becameamember",
-    name: "Became a Member",
+    name: "Extension",
   },
 ];
 
@@ -125,3 +111,4 @@ export const FacebookTool = [
     link: "#",
   },
 ];
+export const API_ERROR_MESSAGE = "An error occurred while processing your request."

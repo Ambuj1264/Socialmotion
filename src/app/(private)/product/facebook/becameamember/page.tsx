@@ -1,27 +1,51 @@
 "use client";
-import React, { useEffect, useState } from "react";
+import Loader from "@/components/Loader/Loader";
+import { getLocalStorageData } from "@/utility/storage";
+import axios from "axios";
+import { useSession } from "next-auth/react";
+import React, { Suspense, useCallback, useEffect, useLayoutEffect, useState } from "react";
 import { useSelector } from "react-redux";
 
 function BecameMember() {
   const [checkApproval, setCheckApproval] = useState<any>();
-  const [loginUser, setLoginUser] = useState();
-
-  useEffect(() => {
-
-  }, [loginUser, checkApproval]);
 
   const myExtension = (url: string) => {
     location.href = url;
   };
-
-  // if (loading) {
-  //   return <Spinner />;
-  // }
   const state = useSelector((state: any) => state?.sidebar?.payload);
-
+  const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
+  // const userData: any = getLocalStorageData("user");
+  // const userID = userData?._id;
+  const {data:session}:{data:any} = useSession();
+  const checkPayment = useCallback(async () => {
+    try {
+      const response = await axios.post("/api/checkApproval", {
+        _id: session?.user?._id,
+      });
+      console.log(response?.data,"paymentStatusCheck");
+      setPaymentStatusCheck(response?.data?.data?.approved);
+    } catch (error: any) {
+      console.log(error.message);
+    }
+  }, [session?.user?._id]);
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      await checkPayment();
+    };
+    fetchData();
+  }, [session?.user?._id, checkPayment, paymentStatusCheck,]);
+  console.log(paymentStatusCheck, "paymentStatusCheck");
   return (
     <>
+    <Suspense fallback={<Loader/>}>
       <div className={`${state ? "w-screen " : ""} overflow-hidden mt-10`}>
+      <div className=" my-9">
+        <div className="my-8 flex flex-col justify-center items-center ">
+          <div className="p-5  border border-grey-450 w-96 rounded-md">
+            <h2 className="text-center">Facebook Extension</h2>
+          </div>
+        </div>
+        </div>
         <div className="m-10 ">
           <div className="flex justify-center ">
             <div className="p-4 w-full">
@@ -43,7 +67,7 @@ function BecameMember() {
             <div className="py-4 pr-4 flex justify-center items-center w-full">
               <div className="text-center">
                 <h3 className="text-3xl mb-2">Paid Version Extension</h3>
-                {checkApproval ? (
+                {paymentStatusCheck ? (
                   <button
                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
                     onClick={() =>
@@ -79,6 +103,7 @@ function BecameMember() {
           </div>
         </div>
       </div>
+      </Suspense>
     </>
   );
 }

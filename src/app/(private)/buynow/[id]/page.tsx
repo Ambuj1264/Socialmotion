@@ -1,5 +1,5 @@
 "use client";
-import React, { useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import { Button, Card, CardHeader } from "@nextui-org/react";
 import { BuySingleproduct, priceSocialMenu } from "@/utility/constant";
 import { useParams } from "next/navigation";
@@ -7,15 +7,47 @@ import { errorToast, successToast } from "@/utility/Toast";
 import axios from "axios";
 import Loader from "@/components/Loader/Loader";
 import { getLocalStorageData } from "@/utility/storage";
+import { useRouter } from "next/navigation";
 const BuyComponent = () => {
+  const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
+
   const { id }: any = useParams();
+  const router = useRouter();
   const data = priceSocialMenu.filter((value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1));
   const [loading, setLoading] = useState<boolean>(false);
-  const userData:any = getLocalStorageData("user");
-  const userID= userData?._id;
+  const userData: any = getLocalStorageData("user");
+
+  const userID = userData?._id;
+  const checktPayment = useCallback(async () => {
+    try {
+      const response = await axios.post("/api/checkApproval", {
+        _id: userID,
+      });
+      console.log(response?.data?.data, "response---------------");
+      setPaymentStatusCheck(response?.data?.data?.approved);
+    } catch (error: any) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  useEffect(() => {
+    const fetchData = async () => {
+      await checktPayment();
+      console.log(paymentStatusCheck,"paymentStatusCheck");
+      if (paymentStatusCheck) {
+        router.push("/dashboard");
+      }
+    };
+    fetchData();
+  }, [userID, checktPayment,paymentStatusCheck]);
+
+  if (loading) {
+    return <Loader />;
+  }
   //handler
   const handler = async () => {
-    setLoading(true)
+    setLoading(true);
     try {
       const result = await axios.post("/api/paymentCheckout", {
         userId: userID,
@@ -34,7 +66,7 @@ const BuyComponent = () => {
   };
 
   if (loading) {
-   return  <Loader />;
+    return <Loader />;
   }
   return (
     <>

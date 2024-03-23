@@ -5,13 +5,41 @@ import { Buyyouproduct, priceSocialMenu } from "@/utility/constant";
 import { getLocalStorageData } from "@/utility/storage";
 import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import axios from "axios";
-import React, { useState } from "react";
+import { useRouter } from "next/navigation";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 const BuyNow = () => {
   const [loading, setLoading] = useState<boolean>(true);
+  const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
   const userData:any = getLocalStorageData("user");
   const userID= userData?._id;
+  const router = useRouter();
+  const checktPayment = useCallback(async () => {
+    try {
+      const response = await axios.post("/api/checkApproval", {
+        _id: userID,
+      });
+      setPaymentStatusCheck(response?.data?.data?.approved);
+    } catch (error: any) {
+      console.log(error.message);
+    } finally {
+      setLoading(false);
+    }
+  }, []);
+  useLayoutEffect(() => {
+    const fetchData = async () => {
+      await checktPayment();
+      console.log(paymentStatusCheck,"paymentStatusCheck");
+      if (paymentStatusCheck) {
+        router.push("/dashboard");
+      }
+    };
+    fetchData();
+  }, [userID, checktPayment,paymentStatusCheck]);
 
+  if (loading) {
+    return <Loader />;
+  }
   const handler = async (data: string) => {
     try {
       if (data === "Facebook") {

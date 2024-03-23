@@ -10,10 +10,8 @@ const Layout: React.FC<{ children: ReactNode }> = async({ children }) => {
   const userData= session?.user
   return (
     <>
-      <Suspense fallback={<Spinner />}>
         <LoggedNavBar  data={userData}/>
         {children}
-      </Suspense>
     </>
   );
 };
