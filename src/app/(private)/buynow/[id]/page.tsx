@@ -1,5 +1,5 @@
 "use client";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 import { Button, Card, CardHeader } from "@nextui-org/react";
 import { BuySingleproduct, priceSocialMenu } from "@/utility/constant";
 import { useParams } from "next/navigation";
@@ -70,6 +70,7 @@ const BuyComponent = () => {
   }
   return (
     <>
+ <Suspense fallback={<Loader />}>
       <div className="flex justify-center items-center">
         <div className="min-h-screen my-9">
           <div className="my-2 flex flex-col justify-center items-center ">
@@ -97,6 +98,8 @@ const BuyComponent = () => {
           </div>
         </div>
       </div>
+      </Suspense>
+
     </>
   );
 };

@@ -6,7 +6,7 @@ import { getLocalStorageData } from "@/utility/storage";
 import { Button, Card, CardHeader, Spinner } from "@nextui-org/react";
 import axios from "axios";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useLayoutEffect, useState } from "react";
 
 const BuyNow = () => {
   const [loading, setLoading] = useState<boolean>(true);
@@ -67,6 +67,7 @@ const BuyNow = () => {
 
   return (
     <>
+     <Suspense fallback={<Loader />}>
       <div className="min-h-screen my-9">
         <div className="my-8 flex flex-col justify-center items-center ">
           <div className="p-5  border border-grey-450 w-96 rounded-md">
@@ -104,6 +105,7 @@ const BuyNow = () => {
           })}
         </div>
       </div>
+      </Suspense>
     </>
   );
 };
