@@ -9,7 +9,7 @@ export const BuySingleproduct = "BUY YOUR FAVOURITE PRODUCT";
 export const SocialMenu: SocialMenuType[] = [
   {
     details: "Automate Your Facebook Account",
-    toolNo: "5 Free and 10 Paid  tools",
+    toolNo: "1 Free and 5 Paid  tools",
     name: "Facebook",
     addr: "/product/facebook/manageextension",
     imgAddr:

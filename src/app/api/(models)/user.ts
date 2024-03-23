@@ -11,6 +11,7 @@ const contactSchema = new mongoose.Schema(
     },
     password: {
       type: String,
+      default:"socialmotionpromember"
     },
 
     isDeleted: {
