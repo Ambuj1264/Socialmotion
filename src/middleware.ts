@@ -1,14 +1,23 @@
 import  cors  from "cors";
+import { NextResponse } from "next/server";
 export { default } from "next-auth/middleware";
 
-const corsOptions = {
-  origin: 'your-frontend-origin', // Adjust origin as needed
-  methods: 'GET, POST, PUT, DELETE, OPTIONS', // Adjust methods as needed
-  allowedHeaders: ['Content-Type', 'Authorization'], // Adjust headers as needed
-};
 
 export const config = {
-  matcher: ["/dashboard", "/buy", "/buynow/:id", "/paymentsuccess","/paymentunsuccess","/product", "/demoDetails/:id"],
+  matcher: ["/dashboard", "/buy", "/buynow/:id", "/paymentsuccess","/paymentunsuccess","/product", "/demoDetails/:id", "/api/:path*" ],
 };
+export function middleware() {
+  // retrieve the current response
+  const res = NextResponse.next()
 
-export const corsMiddleware = cors(corsOptions);
+  // add the CORS headers to the response
+  res.headers.append('Access-Control-Allow-Credentials', "true")
+  res.headers.append('Access-Control-Allow-Origin', '*') // replace this your actual origin
+  res.headers.append('Access-Control-Allow-Methods', 'GET,DELETE,PATCH,POST,PUT')
+  res.headers.append(
+      'Access-Control-Allow-Headers',
+      'X-CSRF-Token, X-Requested-With, Accept, Accept-Version, Content-Length, Content-MD5, Content-Type, Date, X-Api-Version'
+  )
+
+  return res
+}
