@@ -25,7 +25,6 @@ const BuyComponent = () => {
       const response = await axios.post("/api/checkApproval", {
         _id: userID,
       });
-      console.log(response?.data?.data, "response---------------");
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
@@ -36,10 +35,6 @@ const BuyComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       await checktPayment();
-      console.log(paymentStatusCheck, "paymentStatusCheck");
-      if (paymentStatusCheck) {
-        router.push("/dashboard");
-      }
     };
     fetchData();
   }, [userID, checktPayment, paymentStatusCheck]);

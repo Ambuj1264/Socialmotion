@@ -29,10 +29,6 @@ const BuyNow = () => {
   useLayoutEffect(() => {
     const fetchData = async () => {
       await checktPayment();
-      console.log(paymentStatusCheck,"paymentStatusCheck");
-      if (paymentStatusCheck) {
-        router.push("/dashboard");
-      }
     };
     fetchData();
   }, [userID, checktPayment,paymentStatusCheck]);
