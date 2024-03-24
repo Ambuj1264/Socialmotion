@@ -13,7 +13,9 @@ const BuyComponent = () => {
 
   const { id }: any = useParams();
   const router = useRouter();
-  const data = priceSocialMenu.filter((value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1));
+  const data = priceSocialMenu.filter(
+    (value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1)
+  );
   const [loading, setLoading] = useState<boolean>(false);
   const userData: any = getLocalStorageData("user");
 
@@ -34,13 +36,13 @@ const BuyComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       await checktPayment();
-      console.log(paymentStatusCheck,"paymentStatusCheck");
+      console.log(paymentStatusCheck, "paymentStatusCheck");
       if (paymentStatusCheck) {
         router.push("/dashboard");
       }
     };
     fetchData();
-  }, [userID, checktPayment,paymentStatusCheck]);
+  }, [userID, checktPayment, paymentStatusCheck]);
 
   if (loading) {
     return <Loader />;
@@ -70,36 +72,41 @@ const BuyComponent = () => {
   }
   return (
     <>
- <Suspense fallback={<Loader />}>
-      <div className="flex justify-center items-center">
-        <div className="min-h-screen my-9">
-          <div className="my-2 flex flex-col justify-center items-center ">
-            <div className="p-5  border border-grey-450 w-96 rounded-md">
-              <h2 className="text-center">{BuySingleproduct}</h2>
+      <Suspense fallback={<Loader />}>
+        <div className="flex justify-center items-center">
+          <div className="min-h-screen my-9">
+            <div className="my-2 flex flex-col justify-center items-center ">
+              <div className="p-5  border border-grey-450 w-96 rounded-md">
+                <h2 className="text-center">{BuySingleproduct}</h2>
+              </div>
             </div>
-          </div>
-          <div className="flex flex-wrap justify-evenly items-center ">
-            <div className="mb-4 mx-8 my-4 ">
-              <Card className="py-4" style={{ width: "fit-content" }}>
-                <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
-                  <h4 className="font-bold text-large">{data[0]?.name}</h4>
-                  <span className="text-default-500 uppercase font-bold">{data[0]?.details}</span>
-                  <small className="text-default-500">{data[0]?.toolNo}</small>
-                  <h4 className="font-bold  text-green-600">{data[0]?.price ? `Price :  $ ${data[0]?.price} ` : ""}</h4>
-                </CardHeader>
+            <div className="flex flex-wrap justify-evenly items-center ">
+              <div className="mb-4 mx-8 my-4 ">
+                <Card className="py-4" style={{ width: "fit-content" }}>
+                  <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
+                    <h4 className="font-bold text-large">{data[0]?.name}</h4>
+                    <span className="text-default-500 uppercase font-bold">
+                      {data[0]?.details}
+                    </span>
+                    <small className="text-default-500">
+                      {data[0]?.toolNo}
+                    </small>
+                    <h4 className="font-bold  text-green-600">
+                      {data[0]?.price ? `Price :  $ ${data[0]?.price} ` : ""}
+                    </h4>
+                  </CardHeader>
 
-                <div className="flex justify-center my-5">
-                  <Button color="primary" variant="shadow" onClick={handler}>
-                    Buy Now
-                  </Button>
-                </div>
-              </Card>
+                  <div className="flex justify-center my-5">
+                    <Button color="primary" variant="shadow" onClick={handler}>
+                      Buy Now
+                    </Button>
+                  </div>
+                </Card>
+              </div>
             </div>
           </div>
         </div>
-      </div>
       </Suspense>
-
     </>
   );
 };
