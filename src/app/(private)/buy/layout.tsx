@@ -1,12 +1,12 @@
-"use client"
+"use client";
 import Loader from "@/components/Loader/Loader";
 import { getLocalStorageData } from "@/utility/storage";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 
-const Layout = ({children}: {children: React.ReactNode}) => {
+const Layout = ({ children }: { children: React.ReactNode }) => {
   const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
   const router = useRouter();
   const { data: session, status } = useSession();
@@ -45,10 +45,7 @@ const Layout = ({children}: {children: React.ReactNode}) => {
   if (loading) {
     return <Loader />;
   }
-  return (
-    <>
-    {children}</>
-  )
-}
+  return <Suspense fallback={<Loader />}>{children}</Suspense>;
+};
 
-export default Layout
+export default Layout;

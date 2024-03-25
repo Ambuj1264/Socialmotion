@@ -4,7 +4,7 @@ import { getLocalStorageData } from "@/utility/storage";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import { useRouter } from "next/navigation";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { Suspense, useCallback, useEffect, useState } from "react";
 
 const Layout = ({ children }: { children: React.ReactNode }) => {
   const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
@@ -45,7 +45,11 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   if (loading) {
     return <Loader />;
   }
-  return <>{children}</>;
+  return <>
+  <Suspense fallback={<Loader/>}>
+  {children}
+  </Suspense>
+  </>
 };
 
 export default Layout;
