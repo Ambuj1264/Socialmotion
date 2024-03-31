@@ -22,8 +22,6 @@ const BuyNow = () => {
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
-    } finally {
-      setLoading(false);
     }
   }, []);
   useLayoutEffect(() => {
@@ -31,6 +29,9 @@ const BuyNow = () => {
       await checktPayment();
       if(paymentStatusCheck){
         router.push("/dashboard");
+      }
+      else{
+        setLoading(false);
       }
 
     };

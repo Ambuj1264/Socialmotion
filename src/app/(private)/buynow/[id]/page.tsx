@@ -28,9 +28,7 @@ const BuyComponent = () => {
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
-    } finally {
-      setLoading(false);
-    }
+    } 
   }, []);
   useEffect(() => {
     const fetchData = async () => {
@@ -38,6 +36,9 @@ const BuyComponent = () => {
 
       if (paymentStatusCheck) {
         router.push("/dashboard");
+      }
+      else{
+        setLoading(false);
       }
     };
     fetchData();
