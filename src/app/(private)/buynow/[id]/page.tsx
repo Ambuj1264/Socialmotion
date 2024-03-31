@@ -35,6 +35,10 @@ const BuyComponent = () => {
   useEffect(() => {
     const fetchData = async () => {
       await checktPayment();
+
+      if (paymentStatusCheck) {
+        router.push("/dashboard");
+      }
     };
     fetchData();
   }, [userID, checktPayment, paymentStatusCheck]);

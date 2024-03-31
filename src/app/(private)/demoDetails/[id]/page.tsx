@@ -3,7 +3,6 @@ import { useParams } from "next/navigation";
 import React, { useCallback, useEffect, useState } from "react";
 import BuyNow from "./BuyNow";
 import axios from "axios";
-import { Spinner } from "@nextui-org/react";
 import Loader from "@/components/Loader/Loader";
 
 const DemoVideoDetails = () => {
@@ -26,7 +25,7 @@ const DemoVideoDetails = () => {
   }, [id]);
 
   if (loading) {
-   return <Loader />;
+    return <Loader />;
   }
 
   return (
@@ -38,7 +37,10 @@ const DemoVideoDetails = () => {
           </div>
         </div>
         <div className="mt-8">
-          <p className="text-center lg:px-44 md:px-20 px-5"> {data?.toolDetails}</p>
+          <p className="text-center lg:px-44 md:px-20 px-5">
+            {" "}
+            {data?.toolDetails}
+          </p>
         </div>
         <div className="flex mt-8 flex-col justify-center items-center sm:w-full">
           <iframe
