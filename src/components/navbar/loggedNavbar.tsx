@@ -71,7 +71,7 @@ export default function LoggedNavBar({ data }: any) {
         {pathState ? (
           <span className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110" onClick={sidebarHandler}>
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
-            <span className="w-6 h-0.5 bg-gray-800 mb-1" />
+
             <span className="w-6 h-0.5 bg-gray-800" />
           </span>
         ) : null}

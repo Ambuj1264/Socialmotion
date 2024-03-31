@@ -15,7 +15,7 @@ const Layout = ({ children }: { children: React.ReactNode }) => {
   } else {
     localStorage.setItem("user", JSON.stringify(session?.user));
   }
-  const [loading, setLoading] = useState<boolean>(false);
+  const [loading, setLoading] = useState<boolean>(true);
   const userData: any = getLocalStorageData("user");
 
   const userID = userData?._id;
