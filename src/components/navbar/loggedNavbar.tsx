@@ -1,23 +1,6 @@
 "use client";
-import React, {
-  useCallback,
-  useEffect,
-  useLayoutEffect,
-  useState,
-} from "react";
-import {
-  Navbar,
-  NavbarBrand,
-  NavbarContent,
-  NavbarItem,
-  Link,
-  Dropdown,
-  DropdownTrigger,
-  Avatar,
-  DropdownMenu,
-  DropdownItem,
-  Skeleton,
-} from "@nextui-org/react";
+import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
@@ -30,7 +13,6 @@ import axios from "axios";
 export default function LoggedNavBar({ data }: any) {
   const router = useRouter();
   const [pathState, setPathState] = useState<boolean>(false);
-  const [loading, setLoading] = useState(false);
   const state: any = useSelector((state) => state);
   const pathname = usePathname();
   const dispatch = useDispatch();
@@ -46,7 +28,7 @@ export default function LoggedNavBar({ data }: any) {
     localStorage.removeItem("user");
     router.push("/");
   };
-  const [paymentStatusCheck, setPaymentStatusCheck] = useState(true);
+  const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
   const userData: any = getLocalStorageData("user");
   const userID = userData?._id;
   const checkPayment = useCallback(async () => {
@@ -57,8 +39,6 @@ export default function LoggedNavBar({ data }: any) {
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
-    } finally {
-      setLoading(false);
     }
   }, []);
   useLayoutEffect(() => {
@@ -67,7 +47,6 @@ export default function LoggedNavBar({ data }: any) {
     };
     fetchData();
   }, [userID, checkPayment, paymentStatusCheck, router]);
-
   return (
     <>
       <Navbar
@@ -90,10 +69,7 @@ export default function LoggedNavBar({ data }: any) {
         }}
       >
         {pathState ? (
-          <span
-            className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110"
-            onClick={sidebarHandler}
-          >
+          <span className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110" onClick={sidebarHandler}>
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
             <span className="w-6 h-0.5 bg-gray-800" />
@@ -108,70 +84,38 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </div>
         </NavbarBrand>
-        {loading ? (
-          <div className="w-full flex flex-col gap-2 items-center justify-center">
-            <Skeleton className="h-3 w-4/5 rounded-lg" />
-          </div>
-        ) : (
-          <NavbarContent className="hidden sm:flex gap-4" justify="center">
-            <NavbarItem>
-              <Link color="foreground" href="/" className="hover:text-primary">
-                Home
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                href="/dashboard"
-                color="foreground"
-                className="hover:text-primary"
-              >
-                Your Automation
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                color="foreground"
-                href="/contact"
-                className="hover:text-primary"
-              >
-                Contact Us
-              </Link>
-            </NavbarItem>
-            <NavbarItem>
-              <Link
-                href="/buy"
-                color="foreground"
-                className="hover:text-primary"
-              >
-                {paymentStatusCheck ? "" : "Buy Products"}
-              </Link>
-            </NavbarItem>
-          </NavbarContent>
-        )}
 
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          <NavbarItem>
+            <Link color="foreground" href="/" className="hover:text-primary">
+              Home
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link href="/dashboard" color="foreground" className="hover:text-primary">
+              Your Automation
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link color="foreground" href="/contact" className="hover:text-primary">
+              Contact Us
+            </Link>
+          </NavbarItem>
+          <NavbarItem>
+            <Link href="/buy" color="foreground" className="hover:text-primary">
+              {paymentStatusCheck ? "" : "Buy Products"}
+            </Link>
+          </NavbarItem>
+        </NavbarContent>
         <NavbarContent as="div" justify="end">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
-              <Avatar
-                isBordered
-                as="button"
-                className="transition-transform"
-                color="secondary"
-                name="Jason Hughes"
-                size="sm"
-                src={
-                  data?.image
-                    ? data?.image
-                    : `https://i.pravatar.cc/150?u=a042581f4e29026704d`
-                }
-              />
+              <Avatar isBordered as="button" className="transition-transform" color="secondary" name="Jason Hughes" size="sm" src={data?.image ? data?.image : `https://i.pravatar.cc/150?u=a042581f4e29026704d`} />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">
-                  {data?.name ? data?.name : "john doe"}
-                </p>
+                <p className="font-semibold">{data?.name ? data?.name : "john doe"}</p>
               </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={logoutHandler}>
                 Log Out
