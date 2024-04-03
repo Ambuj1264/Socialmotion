@@ -88,8 +88,8 @@ export default function LoggedNavBar({ data }: any) {
           </div>
         </NavbarBrand>
           {
-            loading?   <Skeleton className="w-4/5 rounded-lg">
-            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+            loading?   <Skeleton className="w-2/5 rounded-lg">  
+            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
           </Skeleton>:  <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/" className="hover:text-primary">
