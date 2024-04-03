@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, Skeleton } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
@@ -12,6 +12,7 @@ import { getLocalStorageData } from "@/utility/storage";
 import axios from "axios";
 export default function LoggedNavBar({ data }: any) {
   const router = useRouter();
+  const [loading, setLoading] = useState<boolean>(true);
   const [pathState, setPathState] = useState<boolean>(false);
   const state: any = useSelector((state) => state);
   const pathname = usePathname();
@@ -39,6 +40,8 @@ export default function LoggedNavBar({ data }: any) {
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
+    }finally{
+      setLoading(false);
     }
   }, []);
   useLayoutEffect(() => {
@@ -84,8 +87,10 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </div>
         </NavbarBrand>
-
-        <NavbarContent className="hidden sm:flex gap-4" justify="center">
+          {
+            loading?   <Skeleton className="w-4/5 rounded-lg">
+            <div className="h-3 w-4/5 rounded-lg bg-default-200"></div>
+          </Skeleton>:  <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/" className="hover:text-primary">
               Home
@@ -107,6 +112,8 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </NavbarItem>
         </NavbarContent>
+          }
+       
         <NavbarContent as="div" justify="end">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
