@@ -89,7 +89,6 @@ const handler = NextAuth({
     },
 
     async jwt({ token }) {
-      
       return token;
     },
   },

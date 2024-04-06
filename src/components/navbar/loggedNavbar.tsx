@@ -1,6 +1,6 @@
 "use client";
 import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, Skeleton } from "@nextui-org/react";
+import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
@@ -8,11 +8,10 @@ import { signOut } from "next-auth/react";
 import { useDispatch, useSelector } from "react-redux";
 import { usePathname, useRouter } from "next/navigation";
 import { sidebar } from "@/redux/Action";
-import { getLocalStorageData } from "@/utility/storage";
+import { GetLocalStorageData } from "@/utility/storage";
 import axios from "axios";
 export default function LoggedNavBar({ data }: any) {
   const router = useRouter();
-  const [loading, setLoading] = useState<boolean>(true);
   const [pathState, setPathState] = useState<boolean>(false);
   const state: any = useSelector((state) => state);
   const pathname = usePathname();
@@ -29,9 +28,10 @@ export default function LoggedNavBar({ data }: any) {
     localStorage.removeItem("user");
     router.push("/");
   };
-  const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
-  const userData: any = getLocalStorageData("user");
+  const [paymentStatusCheck, setPaymentStatusCheck] = useState(true);
+  const userData: any = GetLocalStorageData("user");
   const userID = userData?._id;
+  const [isMenuOpen] = useState(false);
   const checkPayment = useCallback(async () => {
     try {
       const response = await axios.post("/api/checkApproval", {
@@ -40,10 +40,13 @@ export default function LoggedNavBar({ data }: any) {
       setPaymentStatusCheck(response?.data?.data?.approved);
     } catch (error: any) {
       console.log(error.message);
-    }finally{
-      setLoading(false);
     }
-  }, []);
+  }, [userID]);
+  const menuItems = [
+    { name: "Home", href: "/" },
+    { name: "Your Automation", href: "/dashboard" },
+    { name: "Contact Us", href: "/contact" },
+  ];
   useLayoutEffect(() => {
     const fetchData = async () => {
       await checkPayment();
@@ -71,11 +74,12 @@ export default function LoggedNavBar({ data }: any) {
           ],
         }}
       >
+        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
         {pathState ? (
           <span className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110" onClick={sidebarHandler}>
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
-
-            <span className="w-6 h-0.5 bg-gray-800" />
+            <span className="w-6 h-0.5 bg-gray-800 mb-1" />
+            <span className="w-6 h-0.5 bg-gray-800 mb-1" />
           </span>
         ) : null}
 
@@ -87,10 +91,8 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </div>
         </NavbarBrand>
-          {
-            loading?   <Skeleton className="w-2/5 rounded-lg">  
-            <div className="h-3 w-2/5 rounded-lg bg-default-300"></div>
-          </Skeleton>:  <NavbarContent className="hidden sm:flex gap-4" justify="center">
+
+        <NavbarContent className="hidden sm:flex gap-4" justify="center">
           <NavbarItem>
             <Link color="foreground" href="/" className="hover:text-primary">
               Home
@@ -112,8 +114,7 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </NavbarItem>
         </NavbarContent>
-          }
-       
+
         <NavbarContent as="div" justify="end">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
@@ -131,6 +132,15 @@ export default function LoggedNavBar({ data }: any) {
           </Dropdown>
           &nbsp; <ThemeSwitcher />
         </NavbarContent>
+        <NavbarMenu>
+          {menuItems.map((item, index) => (
+            <NavbarMenuItem key={`${item}-${index}`}>
+              <Link color={index === 1 ? "primary" : "foreground"} className="w-full" href={item?.href} size="lg">
+                {item?.name}
+              </Link>
+            </NavbarMenuItem>
+          ))}
+        </NavbarMenu>
       </Navbar>
     </>
   );

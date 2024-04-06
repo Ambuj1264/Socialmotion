@@ -1,4 +1,5 @@
-import React from "react";
+"use client";
+import React, { useState } from "react";
 import {
   Navbar,
   NavbarBrand,
@@ -6,24 +7,22 @@ import {
   NavbarItem,
   Link,
   Button,
+  NavbarMenu,
+  NavbarMenuItem,
+  NavbarMenuToggle,
 } from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
 
 export default function FullNavbar() {
+  const [isMenuOpen] = useState(false);
+
   const menuItems = [
-    "Profile",
-    "Dashboard",
-    "Activity",
-    "Analytics",
-    "System",
-    "Deployments",
-    "My Settings",
-    "Team Settings",
-    "Help & Feedback",
-    "Log Out",
-  ];
+    {name: "Home", href:"/"},
+    { name: "Your Automation", href:"/dashboard"},
+    {name:  "Contact Us", href:"/contact"},
+   ];
   return (
     <Navbar
       isBordered
@@ -44,6 +43,10 @@ export default function FullNavbar() {
         ],
       }}
     >
+        <NavbarMenuToggle
+     aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+     className="sm:hidden"
+   />
       <NavbarBrand>
         <Link color="foreground" href="/">
           <AcmeLogo />
@@ -75,6 +78,22 @@ export default function FullNavbar() {
           &nbsp; <ThemeSwitcher />
         </NavbarItem>
       </NavbarContent>
+      <NavbarMenu>
+        {menuItems.map((item, index) => (
+          <NavbarMenuItem key={`${item}-${index}`}>
+            <Link
+              color={
+                index === 1 ? "primary" : "foreground"
+              }
+              className="w-full"
+              href={item?.href}
+              size="lg"
+            >
+              {item?.name}
+            </Link>
+          </NavbarMenuItem>
+        ))}
+      </NavbarMenu>
     </Navbar>
   );
 }

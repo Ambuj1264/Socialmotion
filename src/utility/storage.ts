@@ -1,13 +1,20 @@
-export function getLocalStorageData(key:string) {
+"use client";
+
+import { useEffect, useState } from "react";
+
+export  function GetLocalStorageData(key: string) {
+  const [data, setData] = useState(null);
+
+  useEffect(() => {
     try {
-      const data = localStorage.getItem(key);
-      if (data !== null) {
-        return JSON.parse(data);
+      const storedData = window.localStorage.getItem(key);
+      if (storedData !== null) {
+        setData(JSON.parse(storedData));
       }
-      return null;
-    } catch (error) {
-      console.error("Error retrieving data from local storage:", error);
-      return null;
+    } catch (error: any) {
+      console.log("Error retrieving data from local storage:", error.message);
     }
-  }
-  
+  }, [key]);
+
+  return data;
+}

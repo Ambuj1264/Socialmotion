@@ -4,7 +4,7 @@ export const BRAND_NAME = "SOCIAL MOTION";
 export const BANNER_HEADING = "Welcome to Social Motion";
 export const BANNER_SUB_HEADING =
   "Automate Your Social Media with Social Motion";
-export const Buyyouproduct = "BUY YOUR FAVOURITE PRODUCTS";
+export const buyYourProduct = "BUY YOUR FAVOURITE PRODUCTS";
 export const BuySingleproduct = "BUY YOUR FAVOURITE PRODUCT";
 export const SocialMenu: SocialMenuType[] = [
   {

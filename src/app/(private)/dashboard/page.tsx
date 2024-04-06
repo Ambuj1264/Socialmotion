@@ -1,9 +1,12 @@
+"use client";
 import React, { Suspense } from "react";
 import { Card, CardHeader, CardBody, Image, Link } from "@nextui-org/react";
 import Skeletons from "@/components/themes/Skeltons";
 import { SocialMenu } from "@/utility/constant";
+import CheckAuth from "@/components/auth/CheckAuth";
 
 const Menu = () => {
+  CheckAuth();
   return (
     <Suspense fallback={<Skeletons />}>
       <div className=" my-8 flex flex-col justify-center items-center">

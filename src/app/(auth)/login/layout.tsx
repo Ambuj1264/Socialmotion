@@ -11,7 +11,6 @@ const Layout: React.FC<{ children: ReactNode }> = async ({ children }) => {
   return (
     <>
       <Suspense fallback={<Spinner />}>
-        <FullNavbar />
         {children}
       </Suspense>
     </>

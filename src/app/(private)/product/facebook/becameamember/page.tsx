@@ -1,6 +1,6 @@
 "use client";
 import Loader from "@/components/Loader/Loader";
-import { getLocalStorageData } from "@/utility/storage";
+import { GetLocalStorageData } from "@/utility/storage";
 import axios from "axios";
 import { useSession } from "next-auth/react";
 import React, { Suspense, useCallback, useEffect, useLayoutEffect, useState } from "react";

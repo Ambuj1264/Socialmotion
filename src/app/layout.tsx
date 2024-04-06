@@ -4,6 +4,7 @@ import "./globals.css";
 import { Providers } from "./providers";
 import Footer from "@/components/footer/Footer";
 import SessionProvider from "@/Hoc/SessionProvider";
+import NavBarProvider from "@/components/navbar/NavBarProvider";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -23,6 +24,7 @@ export default async function RootLayout({
       <body className={inter.className}  suppressHydrationWarning>
         <SessionProvider>
           <Providers>
+          <NavBarProvider />
             {children}
             <Footer />
           </Providers>

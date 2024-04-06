@@ -12,6 +12,8 @@ import {
   CardBody,
   Textarea,
 } from "@nextui-org/react";
+import axios from "axios";
+import { errorToast, successToast } from "@/utility/Toast";
 
 export default function Contact() {
   const [selected, setSelected] = useState<string | number>("Contact Us");
@@ -30,10 +32,30 @@ export default function Contact() {
         .matches(/^[0-9]{10}$/, "Number must be 10 digits")
         .required(" Required"),
     }),
-    onSubmit: (values) => {
+    onSubmit: async (values) => {
       if (values) {
         //Registration
-        console.log("Form submitted with values:", values);
+        try {
+          const result =await axios.post("/api/contact", {
+            email: values.email,
+            mobileNumber: values.mobileNumber,
+            message: values.message,
+          })
+          const {data} = result;
+
+          if (data.success) {
+            formik.resetForm();
+            successToast("Thank you for contacting us!");
+          } else {
+            errorToast("Error submitting form. Please try again later.");
+          }
+          
+
+        } catch (error:any) {
+          console.log(error.message);
+        }
+      
+
       } else {
         console.log("Form submitted with values:", values);
       }

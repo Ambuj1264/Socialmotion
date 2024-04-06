@@ -6,7 +6,7 @@ import { useParams } from "next/navigation";
 import { errorToast, successToast } from "@/utility/Toast";
 import axios from "axios";
 import Loader from "@/components/Loader/Loader";
-import { getLocalStorageData } from "@/utility/storage";
+import { GetLocalStorageData } from "@/utility/storage";
 import { useRouter } from "next/navigation";
 const BuyComponent = () => {
   const [paymentStatusCheck, setPaymentStatusCheck] = useState(false);
@@ -17,10 +17,10 @@ const BuyComponent = () => {
     (value) => value?.name == id?.charAt(0).toUpperCase() + id?.slice(1)
   );
   const [loading, setLoading] = useState<boolean>(false);
-  const userData: any = getLocalStorageData("user");
+  const userData: any = GetLocalStorageData("user");
 
   const userID = userData?._id;
-  const checktPayment = useCallback(async () => {
+  const checkPayment = useCallback(async () => {
     try {
       const response = await axios.post("/api/checkApproval", {
         _id: userID,
@@ -29,10 +29,10 @@ const BuyComponent = () => {
     } catch (error: any) {
       console.log(error.message);
     } 
-  }, []);
+  }, [userID]);
   useEffect(() => {
     const fetchData = async () => {
-      await checktPayment();
+      await checkPayment();
 
       if (paymentStatusCheck) {
         router.push("/dashboard");
@@ -42,7 +42,7 @@ const BuyComponent = () => {
       }
     };
     fetchData();
-  }, [userID, checktPayment, paymentStatusCheck]);
+  }, [userID, checkPayment, paymentStatusCheck, router]);
 
   if (loading) {
     return <Loader />;
@@ -72,7 +72,8 @@ const BuyComponent = () => {
   }
   return (
     <>
-      <Suspense fallback={<Loader />}>
+    {
+        paymentStatusCheck ? <Loader /> :   <Suspense fallback={<Loader />}>
         <div className="flex justify-center items-center">
           <div className="min-h-screen my-9">
             <div className="my-2 flex flex-col justify-center items-center ">
@@ -107,6 +108,8 @@ const BuyComponent = () => {
           </div>
         </div>
       </Suspense>
+    }
+    
     </>
   );
 };
