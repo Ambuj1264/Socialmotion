@@ -73,8 +73,8 @@ const BuyComponent = () => {
   return (
     <>
     {
-        paymentStatusCheck ?   
-        (<Suspense fallback={<Loader />}>
+        paymentStatusCheck ?( <Loader />) :   
+        <Suspense fallback={<Loader />}>
         <div className="flex justify-center items-center">
           <div className="min-h-screen my-9">
             <div className="my-2 flex flex-col justify-center items-center ">
@@ -108,7 +108,7 @@ const BuyComponent = () => {
             </div>
           </div>
         </div>
-      </Suspense>): ( <Loader />) 
+      </Suspense>
     }
     
     </>
