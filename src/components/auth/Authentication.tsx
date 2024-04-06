@@ -46,6 +46,7 @@ export default function Authentication() {
             // localStorage.setItem("user",response.data)
             successToast("Login Success");
             router.push("/dashboard");
+            window.location.reload();
           } else {
             errorToast("login failed");
           }
