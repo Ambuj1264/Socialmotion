@@ -29,30 +29,20 @@ export default function LoggedNavBar({ data }: any) {
     router.push("/");
   };
   const [paymentStatusCheck, setPaymentStatusCheck] = useState(true);
+
   const userData: any = GetLocalStorageData("user");
-  const userID = userData?._id;
+  const userApproved = userData?.approved;
   const [isMenuOpen] = useState(false);
-  const checkPayment = useCallback(async () => {
-    try {
-      const response = await axios.post("/api/checkApproval", {
-        _id: userID,
-      });
-      setPaymentStatusCheck(response?.data?.data?.approved);
-    } catch (error: any) {
-      console.log(error.message);
-    }
-  }, [userID]);
+  useEffect(() => {
+    setPaymentStatusCheck(userApproved)
+  }, [userApproved])
+  
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Your Automation", href: "/dashboard" },
     { name: "Contact Us", href: "/contact" },
   ];
-  useLayoutEffect(() => {
-    const fetchData = async () => {
-      await checkPayment();
-    };
-    fetchData();
-  }, [userID, checkPayment, paymentStatusCheck, router]);
+
   return (
     <>
       <Navbar
@@ -114,7 +104,7 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </NavbarItem>
         </NavbarContent>
-
+          
         <NavbarContent as="div" justify="end">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
