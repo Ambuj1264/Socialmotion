@@ -23,6 +23,7 @@ const config: Config = {
       minHeightSidebar: {
         height: "80vw",
       },
+      
     },
   },
   darkMode: "class",

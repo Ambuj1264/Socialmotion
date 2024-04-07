@@ -1,13 +1,14 @@
 import { Button, Link } from "@nextui-org/react";
-import { BANNER_HEADING } from "@/utility/constant";
+import { BANNER_HEADING, CompanyImages, CompanySlogan } from "@/utility/constant";
 
 import { SparklesPreview } from "@/components/ui/SparklesPreview";
 import { TypewriterEffectDemo } from "@/components/ui/TypewriterEffectDemo";
+import Image from "next/image";
 export default async function Home() {
   return (
     <>
-      <div className="">
-        <main className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8">
+      <div>
+        <main className="flex flex-col items-center justify-center min-h-screen py-12 px-4 sm:px-6 lg:px-8" data-aos="fade-down">
           <div className="flex flex-col items-center justify-center mb-12">
             <h1 className="text-4xl font-extrabold text-center  sm:text-5xl">{BANNER_HEADING}</h1>
             <p className="mt-2 text-xl text-center text-gray-600">
@@ -27,7 +28,35 @@ export default async function Home() {
             </div>
           </div>
         </main>
-        <SparklesPreview />
+        <div className="flex flex-col justify-center mb-12">
+          <h5 className="text-xl font-extrabold text-center sm:text-3xl">{CompanySlogan}</h5>
+          <div className="flex  justify-evenly mt-5 flex-wrap">
+            {CompanyImages.map((value, index) => {
+              return <Image key={index} src={value} alt="Company image" className="rounded-xl border" width={"177"} height={"87"} data-aos="zoom-in" />;
+            })}
+          </div>
+        </div>
+        <div className="flex flex-wrap justify-evenly mt-28 w-full mb-28">
+          <div className="  flex flex-col items-center justify-center pt-4 " style={{ width: "500px" }} data-aos="fade-right">
+            <h5 className="text-md text-center text-primary-400 font-bold" color="primary">
+              YOUR SALES, ONE CLICK AWAY
+            </h5>
+            <p className="text-center text-4xl font-bold break-normal py-3">See how your business is performing at all times</p>
+            <p className="text-center py-3 px-10">
+              How about saving hundreds of leads with a simple click?
+              <span className="font-bold"> Social Motion simplifies your sales, removing manual tasks while boosting your productivity.</span>
+            </p>
+          </div>
+          <div className=" flex" data-aos="fade-left">
+            <div>
+              <Image src="https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/65b2cac11f1294265787bee6_pexels-cowomen-2041627-p-800.jpg" className="rounded-xl object-contain" alt="services" width={594} height={393} />
+            </div>
+          </div>
+        </div>
+          <div data-aos="fade-up">
+          <SparklesPreview />
+
+          </div>
       </div>
     </>
   );

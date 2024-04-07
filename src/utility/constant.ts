@@ -2,6 +2,8 @@ import { FacebookDataInterface, SocialMenuType } from "@/types/interface";
 
 export const BRAND_NAME = "SOCIAL MOTION";
 export const BANNER_HEADING = "Welcome to Social Motion";
+export const CompanySlogan= "+100 Companies interested in our Social Motion";
+export const CompanyImages =[ "https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/64ebea76a1410b0086f23f39_2.png", "https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/64ebea76c2db6bd98c24844a_9.png", "https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/64ebea76de7d58e1d6bae4d2_8.png", "https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/64ebea76eee048572ef41963_5.png", "https://assets-global.website-files.com/64e7a82a958b23a5a1d6babd/64ebea768e5ecaab5f55590f_6.png"]
 export const BANNER_SUB_HEADING =
   "Automate Your Social Media with Social Motion";
 export const buyYourProduct = "BUY YOUR FAVOURITE PRODUCTS";
