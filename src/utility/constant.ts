@@ -62,7 +62,7 @@ export const FacebookData: FacebookDataInterface[] = [
   {
     key: "facebookextension",
     link: "/product/facebook/manageextension",
-    name: "Manage Extension",
+    name: "Extension Deatails",
   },
   {
     key: "BuyNow",
@@ -72,7 +72,7 @@ export const FacebookData: FacebookDataInterface[] = [
   {
     key: "becameamember",
     link: "/product/facebook/becameamember",
-    name: "Extension",
+    name: "Extensions",
   },
 ];
 
