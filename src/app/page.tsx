@@ -4,7 +4,6 @@ import { BANNER_HEADING, CompanyImages, CompanySlogan, SlickSettings, Testimonia
 import { SparklesPreview } from "@/components/ui/SparklesPreview";
 import { TypewriterEffectDemo } from "@/components/ui/TypewriterEffectDemo";
 import Image from "next/image";
-import BackgroundGradientDemo from "@/components/ui/GlowingCard";
 
 export default async function Home() {
   return (
