@@ -27,3 +27,8 @@ export interface Session {
   created: number;
 }
 
+export interface TestimonialType {
+  name: string;
+  image: string;
+  feedback: string;
+}

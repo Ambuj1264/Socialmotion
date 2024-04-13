@@ -5,7 +5,8 @@ import { Providers } from "./providers";
 import Footer from "@/components/footer/Footer";
 import SessionProvider from "@/Hoc/SessionProvider";
 import NavBarProvider from "@/components/navbar/NavBarProvider";
-
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
@@ -23,6 +24,9 @@ export default async function RootLayout({
 }>) {
   return (
     <html lang="en">
+      <head>
+      <meta name="google-site-verification" content="n36ntMFdT9t3Cgm9LmeWPn937ai9_FcEJwWkNgLs24o" />
+      </head>
       <body className={inter.className}  suppressHydrationWarning>
         <SessionProvider>
           <Providers>

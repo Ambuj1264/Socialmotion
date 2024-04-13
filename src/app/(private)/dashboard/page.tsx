@@ -4,6 +4,7 @@ import { Card, CardHeader, CardBody, Image, Link } from "@nextui-org/react";
 import Skeletons from "@/components/themes/Skeltons";
 import { SocialMenu } from "@/utility/constant";
 import CheckAuth from "@/components/auth/CheckAuth";
+import BackgroundGradient from "@/components/ui/BackgroundGradient";
 
 const Menu = () => {
   CheckAuth();
@@ -18,6 +19,8 @@ const Menu = () => {
             {SocialMenu.map((value, index) => {
               return (
                 <div key={index} className="mb-4 mx-8 my-4 ">
+                <BackgroundGradient className="rounded-[22px] max-w-sm p-4 sm:p-10 bg-white dark:bg-zinc-900">
+
                   <Link href={value?.addr}>
                     <Card className="py-4" style={{ width: "fit-content" }}>
                       <CardHeader className="pb-0 pt-2 px-4 flex-col items-start">
@@ -42,6 +45,7 @@ const Menu = () => {
                       </CardBody>
                     </Card>
                   </Link>
+                </BackgroundGradient>
                 </div>
               );
             })}

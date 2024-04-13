@@ -1,4 +1,4 @@
-import { FacebookDataInterface, SocialMenuType } from "@/types/interface";
+import { FacebookDataInterface, SocialMenuType, TestimonialType } from "@/types/interface";
 
 export const BRAND_NAME = "SOCIAL MOTION";
 export const BANNER_HEADING = "Welcome to Social Motion";
@@ -114,3 +114,43 @@ export const FacebookTool = [
   },
 ];
 export const API_ERROR_MESSAGE = "An error occurred while processing your request."
+
+export const SlickSettings = {
+  dots: true,
+  infinite: true,
+  slidesToShow: 3,
+  slidesToScroll: 1,
+  autoplay: true,
+  speed: 2000,
+  autoplaySpeed: 2000,
+  cssEase: "linear"
+};
+
+
+export const TestimonialDetails : TestimonialType[] = [
+  {
+    name: "John Doe",
+    image: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
+    feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    name: "John Doe",
+    image: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
+    feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    name: "John Doe",
+    image: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
+    feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    name: "John Doe",
+    image: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
+    feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  },
+  {
+    name: "John Doe",
+    image: "https://res.cloudinary.com/dzepo3ahj/image/upload/v1711182418/vedcdnzsnzvjfuv6ywkt.jpg",
+    feedback: "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
+  }
+]
