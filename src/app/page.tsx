@@ -5,10 +5,7 @@ import { SparklesPreview } from "@/components/ui/SparklesPreview";
 import { TypewriterEffectDemo } from "@/components/ui/TypewriterEffectDemo";
 import Image from "next/image";
 import BackgroundGradientDemo from "@/components/ui/GlowingCard";
-// import Slider from "react-slick";
-// import { TestimonialType } from "@/types/interface";
-// import "slick-carousel/slick/slick.css";
-// import "slick-carousel/slick/slick-theme.css";
+
 export default async function Home() {
   return (
     <>
@@ -62,13 +59,7 @@ export default async function Home() {
         <div className="p-5  border border-grey-600 w-96 rounded-md">
           <h2 className="text-center">Testimonial</h2>
         </div>
-          {/* <div className="flex flex-row justify-evenly items-center flex-wrap ">
-            {/* <Slider {...SlickSettings}> */}
-            {TestimonialDetails.map((value: TestimonialType, index) => {
-              return <BackgroundGradientDemo key={index} name={value?.name} feedback={value?.feedback} image={value?.image} />;
-            })}
-            {/* </Slider> */}
-          </div> */}
+       
           <SparklesPreview />
         </div>
       </div>

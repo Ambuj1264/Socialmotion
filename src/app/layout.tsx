@@ -5,8 +5,7 @@ import { Providers } from "./providers";
 import Footer from "@/components/footer/Footer";
 import SessionProvider from "@/Hoc/SessionProvider";
 import NavBarProvider from "@/components/navbar/NavBarProvider";
-import "slick-carousel/slick/slick.css";
-import "slick-carousel/slick/slick-theme.css";
+
 const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
