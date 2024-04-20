@@ -78,7 +78,7 @@ export const FacebookData: FacebookDataInterface[] = [
   },
   {
     key: "installationanddemo",
-    link: "/installationanddemo",
+    link: "/product/facebook/installationanddemo",
     name: "Installation and Demo",
   },
 ];
