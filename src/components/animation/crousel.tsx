@@ -50,7 +50,7 @@ function Carousel() {
                 <h4 className="font-bold text-large">{value?.name}</h4>
               </CardHeader>
               <CardBody className="overflow-visible py-2">
-                <p className="text-tiny uppercase font-bold" style={{ width: "270px" }}>
+                <p className="text-tiny  font-bold" style={{ width: "270px" }}>
                   {value?.feedback}
                 </p>
               </CardBody>
