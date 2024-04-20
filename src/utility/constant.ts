@@ -76,6 +76,11 @@ export const FacebookData: FacebookDataInterface[] = [
     link: "/product/facebook/becameamember",
     name: "Extensions",
   },
+  {
+    key: "installationanddemo",
+    link: "/installationanddemo",
+    name: "Installation and Demo",
+  },
 ];
 
 export const sidebarPathNames = ["/product/facebook/becameamember", "/product/facebook/manageextension"];
