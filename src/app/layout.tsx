@@ -16,6 +16,8 @@ export const metadata: Metadata = {
 import { Analytics } from "@vercel/analytics/react"
 import "aos/dist/aos.css";
 import Aosanimation from "@/components/animation/Aosanimation";
+import "slick-carousel/slick/slick.css";
+import "slick-carousel/slick/slick-theme.css";
 export default async function RootLayout({
   children,
 }: Readonly<{

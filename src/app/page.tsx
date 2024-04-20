@@ -4,8 +4,31 @@ import { BANNER_HEADING, CompanyImages, CompanySlogan, SlickSettings, Testimonia
 import { SparklesPreview } from "@/components/ui/SparklesPreview";
 import { TypewriterEffectDemo } from "@/components/ui/TypewriterEffectDemo";
 import Image from "next/image";
+import Carousel from "@/components/animation/crousel";
 
 export default async function Home() {
+  const items = [
+    {
+      image: "image1.jpg",
+      description: "Description 1",
+    },
+    {
+      image: "image2.jpg",
+      description: "Description 2",
+    },
+    {
+      image: "image3.jpg",
+      description: "Description 3",
+    },
+    {
+      image: "image4.jpg",
+      description: "Description 4",
+    },
+    {
+      image: "image5.jpg",
+      description: "Description 5",
+    },
+  ];
   return (
     <>
       <div>
@@ -55,10 +78,14 @@ export default async function Home() {
           </div>
         </div>
         <div data-aos="fade-up" className="flex flex-col items-center justify-center">
-        <div className="p-5  border border-grey-600 w-96 rounded-md">
-          <h2 className="text-center">Testimonial</h2>
-        </div>
-       
+          <div className="p-5  border border-grey-600 w-96 rounded-md">
+            <h2 className="text-center">Testimonial</h2>
+            <p className="text-center">What our clients say about us</p>
+          </div>
+          <div className="container mx-auto">
+            <Carousel/>
+          </div>
+
           <SparklesPreview />
         </div>
       </div>

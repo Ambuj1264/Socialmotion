@@ -45,6 +45,9 @@ const BuyNow = () => {
       if (data === "Facebook") {
         const result = await axios.post("/api/paymentCheckout", {
           userId: userID,
+          price:{
+            
+          }
         });
 
         if (result.data) {

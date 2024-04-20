@@ -3,7 +3,7 @@ const stripe = require("stripe")(process.env.STRIPE_SECRET_KEY!);
 export async function POST(req: NextRequest) {
   const input = await req.json();
   try {
-    const { userId } = input;
+    const { userId, price } = input;
     if (!userId) {
       return NextResponse.json({
         success: false,
@@ -17,12 +17,20 @@ export async function POST(req: NextRequest) {
       },
     });
     const session = await stripe.checkout.sessions.create({
+      payment_method_types: ["card"],
       line_items: [
         {
-          price: "price_1OpZdvGQpQXdlvpzzwrhzi7V",
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: 'Stubborn Attachments',
+              images: ['https://i.imgur.com/EHyR2nP.png'],
+            },
+            unit_amount: 40,
+          },
           quantity: 1,
         },
-      ],
+    ],
       mode: "payment",
       customer: customer?.id,
       success_url: process.env.SUCCESS_URL,
