@@ -12,7 +12,6 @@ export async function POST(req: NextRequest) {
       mobileNumber,
       message,
     });
-    console.log(contactData, "contactData");
     const transporter = nodemailer.createTransport({
       service: "gmail",
       auth: {
