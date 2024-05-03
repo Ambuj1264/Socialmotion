@@ -7,28 +7,6 @@ import Image from "next/image";
 import Carousel from "@/components/animation/crousel";
 
 export default async function Home() {
-  const items = [
-    {
-      image: "image1.jpg",
-      description: "Description 1",
-    },
-    {
-      image: "image2.jpg",
-      description: "Description 2",
-    },
-    {
-      image: "image3.jpg",
-      description: "Description 3",
-    },
-    {
-      image: "image4.jpg",
-      description: "Description 4",
-    },
-    {
-      image: "image5.jpg",
-      description: "Description 5",
-    },
-  ];
   return (
     <>
       <div>
