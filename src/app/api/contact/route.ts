@@ -16,7 +16,7 @@ export async function POST(req: NextRequest) {
       service: "gmail",
       auth: {
         user: "pratik1264675@gmail.com",
-        pass: "ijsawgdnwvgknpib",
+        pass: process.env.EMAIL_SIGNED_PASS,
       },
     });
 
