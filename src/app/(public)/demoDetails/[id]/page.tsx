@@ -53,9 +53,9 @@ const DemoVideoDetails = () => {
             allowFullScreen
           ></iframe>
         </div>
-        <div className="flex my-8 flex-col justify-center items-center ">
-          <BuyNow />
-        </div>
+        {/* <div className="flex my-8 flex-col justify-center items-center ">
+          <BuyNow />e
+        </div> */}
       </div>
     </>
   );
