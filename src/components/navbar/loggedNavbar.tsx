@@ -1,6 +1,25 @@
 "use client";
-import React, { useCallback, useEffect, useLayoutEffect, useState } from "react";
-import { Navbar, NavbarBrand, NavbarContent, NavbarItem, Link, Dropdown, DropdownTrigger, Avatar, DropdownMenu, DropdownItem, NavbarMenuToggle, NavbarMenu, NavbarMenuItem } from "@nextui-org/react";
+import React, {
+  useCallback,
+  useEffect,
+  useLayoutEffect,
+  useState,
+} from "react";
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Link,
+  Dropdown,
+  DropdownTrigger,
+  Avatar,
+  DropdownMenu,
+  DropdownItem,
+  NavbarMenuToggle,
+  NavbarMenu,
+  NavbarMenuItem,
+} from "@nextui-org/react";
 import { AcmeLogo } from "./AcmeLogo";
 import { BRAND_NAME, sidebarPathNames } from "@/utility/constant";
 import { ThemeSwitcher } from "../themes/ThemeSwitcher";
@@ -34,9 +53,9 @@ export default function LoggedNavBar({ data }: any) {
   const userApproved = userData?.approved;
   const [isMenuOpen] = useState(false);
   useEffect(() => {
-    setPaymentStatusCheck(userApproved)
-  }, [userApproved])
-  
+    setPaymentStatusCheck(userApproved);
+  }, [userApproved]);
+
   const menuItems = [
     { name: "Home", href: "/" },
     { name: "Your Automation", href: "/dashboard" },
@@ -64,9 +83,15 @@ export default function LoggedNavBar({ data }: any) {
           ],
         }}
       >
-        <NavbarMenuToggle aria-label={isMenuOpen ? "Close menu" : "Open menu"} className="sm:hidden" />
+        <NavbarMenuToggle
+          aria-label={isMenuOpen ? "Close menu" : "Open menu"}
+          className="sm:hidden"
+        />
         {pathState ? (
-          <span className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110" onClick={sidebarHandler}>
+          <span
+            className=" w-10 h-10 flex flex-col justify-center items-center cursor-pointer transition-all duration-300 transform hover:scale-110"
+            onClick={sidebarHandler}
+          >
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
             <span className="w-6 h-0.5 bg-gray-800 mb-1" />
@@ -89,31 +114,53 @@ export default function LoggedNavBar({ data }: any) {
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link href="/dashboard" color="foreground" className="hover:text-primary">
+            <Link
+              href="/dashboard"
+              color="foreground"
+              className="hover:text-primary"
+            >
               Your Automation
             </Link>
           </NavbarItem>
           <NavbarItem>
-            <Link color="foreground" href="/contact" className="hover:text-primary">
+            <Link
+              color="foreground"
+              href="/contact"
+              className="hover:text-primary"
+            >
               Contact Us
             </Link>
           </NavbarItem>
-          <NavbarItem>
+          {/* <NavbarItem>
             <Link href="/buy" color="foreground" className="hover:text-primary">
               {paymentStatusCheck ? "" : "Buy Products"}
             </Link>
-          </NavbarItem>
+          </NavbarItem> */}
         </NavbarContent>
-          
+
         <NavbarContent as="div" justify="end">
           <Dropdown placement="bottom-end">
             <DropdownTrigger>
-              <Avatar isBordered as="button" className="transition-transform" color="secondary" name="Jason Hughes" size="sm" src={data?.image ? data?.image : `https://i.pravatar.cc/150?u=a042581f4e29026704d`} />
+              <Avatar
+                isBordered
+                as="button"
+                className="transition-transform"
+                color="secondary"
+                name="Jason Hughes"
+                size="sm"
+                src={
+                  data?.image
+                    ? data?.image
+                    : `https://i.pravatar.cc/150?u=a042581f4e29026704d`
+                }
+              />
             </DropdownTrigger>
             <DropdownMenu aria-label="Profile Actions" variant="flat">
               <DropdownItem key="profile" className="h-14 gap-2">
                 <p className="font-semibold">Signed in as</p>
-                <p className="font-semibold">{data?.name ? data?.name : "john doe"}</p>
+                <p className="font-semibold">
+                  {data?.name ? data?.name : "john doe"}
+                </p>
               </DropdownItem>
               <DropdownItem key="logout" color="danger" onClick={logoutHandler}>
                 Log Out
@@ -125,7 +172,12 @@ export default function LoggedNavBar({ data }: any) {
         <NavbarMenu>
           {menuItems.map((item, index) => (
             <NavbarMenuItem key={`${item}-${index}`}>
-              <Link color={index === 1 ? "primary" : "foreground"} className="w-full" href={item?.href} size="lg">
+              <Link
+                color={index === 1 ? "primary" : "foreground"}
+                className="w-full"
+                href={item?.href}
+                size="lg"
+              >
                 {item?.name}
               </Link>
             </NavbarMenuItem>
