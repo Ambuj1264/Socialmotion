@@ -1,0 +1,15 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-socilmotion-dev-badc1-authRole",
+      "UnauthRoleArn": "arn:aws:iam::537124958660:role/amplify-socilmotion-dev-badc1-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::537124958660:role/amplify-socilmotion-dev-badc1-authRole",
+      "Region": "ap-south-1",
+      "DeploymentBucketName": "amplify-socilmotion-dev-badc1-deployment",
+      "UnauthRoleName": "amplify-socilmotion-dev-badc1-unauthRole",
+      "StackName": "amplify-socilmotion-dev-badc1",
+      "StackId": "arn:aws:cloudformation:ap-south-1:537124958660:stack/amplify-socilmotion-dev-badc1/c7016570-021d-11f0-901f-02aacb5bbdd9",
+      "AmplifyAppId": "d39d58z5x70i3z"
+    }
+  }
+}
